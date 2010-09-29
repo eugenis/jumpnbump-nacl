@@ -206,6 +206,7 @@ void open_screen(void)
 
 	screen_buffer[0]=malloc(screen_width*screen_height);
 	screen_buffer[1]=malloc(screen_width*screen_height);
+	printf("open_screen %p %p\n", screen_buffer[0], screen_buffer[1]);
 
 /*
 	dirty_blocks[0]=malloc(sizeof(int)*25*16+1000);
@@ -322,6 +323,8 @@ void flippage(int page)
 	int x,y;
 	unsigned char *src;
 	unsigned char *dest;
+
+	printf("flip!\n");
 
 	assert(drawing_enable==0);
 

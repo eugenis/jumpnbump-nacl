@@ -123,6 +123,7 @@ int menu(void)
 
 		dj_mix();
 
+
 	for(c1 = 0; c1 < JNB_MAX_PLAYERS; c1++)		// set AI to false
 		ai[c1] = 0;
 

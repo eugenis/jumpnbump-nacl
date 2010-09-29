@@ -1,0 +1,15 @@
+# get sdl-nacl, jumpnbump-nacl and nacl-sdk
+# set $SDL_DIR and $NACL_SDK_ROOT appropriately
+
+cd $SDL_DIR
+./autogen
+CC=$NACL_SDK_ROOT/toolchain/linux_x86/bin/nacl64-gcc ./configure --host=nacl64 --disable-assembly
+make
+
+# Go to jumpnbump dir
+make data
+make install
+python httpd.py
+
+# In another tab, start the browser
+google-chrome --enable-nacl http://localhost:5103/jumpnbump.html

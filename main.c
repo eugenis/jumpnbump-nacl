@@ -23,6 +23,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+int kill(int a, int b) {
+}
+
 #include "globals.h"
 #include <fcntl.h>
 #ifndef _MSC_VER
@@ -988,7 +991,8 @@ static void flip_pixels(unsigned char *pixels)
 }
 
 
-int main(int argc, char *argv[])
+/* int main(int argc, char *argv[]) */
+int jumpnbump_main(int argc, char *argv[])
 {
 	unsigned char *handle;
 	int c1 = 0, c2 = 0, c3 = 0, c4 = 0;
@@ -1005,11 +1009,11 @@ int main(int argc, char *argv[])
 
 	if (init_program(argc, argv, pal) != 0)
 		deinit_program();
-
 	if (main_info.fireworks == 1) {
 		fireworks();
 		deinit_program();
 	}
+
 
 	for(i = 0; i < JNB_MAX_PLAYERS; i++)		// reset player values
 		{
@@ -1040,6 +1044,7 @@ int main(int argc, char *argv[])
 		flippage(1);
 		register_background(background_pic, pal);
 		flippage(0);
+
 
 		if (flies_enabled) {
 			s1 = rnd(250) + 50;
@@ -2843,10 +2848,14 @@ void deinit_level(void)
 #define O_BINARY 0
 #endif
 
+extern unsigned char resource_data[]; /* compiled-in jumpbump.dat */
 unsigned char *datafile_buffer = NULL;
 
 static void preread_datafile(const char *fname)
 {
+  datafile_buffer = resource_data;
+  return;
+
     int fd = 0;
     int len;
 
