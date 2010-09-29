@@ -1,0 +1,18 @@
+Subject: Use /usr/share/games/jumpnbump
+From: Ivo Timmermans <ivo@debian.org>
+Date: Wed,  9 Oct 2002 21:01:32 +0200
+
+Make jumpnbump use /usr/share/games/jumpnbump instead of
+/usr/local/share/jumpnbump.
+
+--- jumpnbump.orig/globals.pre
++++ jumpnbump/globals.pre
+@@ -168,7 +168,7 @@
+ #elif _WIN32
+ #define	DATA_PATH "data/jumpbump.dat"
+ #else
+-#define	DATA_PATH "%%PREFIX%%/share/jumpnbump/jumpbump.dat"
++#define	DATA_PATH "%%PREFIX%%/share/games/jumpnbump/jumpbump.dat"
+ #endif
+ #endif
+ 

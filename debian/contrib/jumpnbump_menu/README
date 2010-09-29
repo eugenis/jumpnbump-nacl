@@ -1,0 +1,16 @@
+Edit the Makefile to your liking.
+Also check the variables in the top of the python script.
+
+Then run
+make install
+
+====
+reqs
+====
+
+Python-2.2.1
+pygtk-1.99.13
+ImageMagick-5.4.6
+jumpnbump-1.39
+
+At least thats what I have ;)

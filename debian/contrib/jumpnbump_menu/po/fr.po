@@ -1,0 +1,140 @@
+# French translations for jumpnbump package
+# Traductions françaises du paquet jumpnbump.
+# Copyright (C) 2009 Stéphane Blondon
+# This file is distributed under the same license as the PACKAGE package.
+# stephane <stephane.blondon@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: stephane.blondon@gmail.com\n"
+"POT-Creation-Date: 2009-02-23 22:47+0100\n"
+"PO-Revision-Date: 2009-02-23 23:21+0100\n"
+"Last-Translator: stephane <stephane.blondon@gmail.com>\n"
+"Language-Team: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: jumpnbump-menu:46
+msgid "Level"
+msgstr "Niveau"
+
+#: jumpnbump_menu.glade:8
+msgid "Jump n Bump menu"
+msgstr "Jump n Bump menu"
+
+#: jumpnbump_menu.glade:41
+msgid "_Standalone"
+msgstr "Au_tonome"
+
+#: jumpnbump_menu.glade:60
+msgid "_Fireworks"
+msgstr "_Feu d'artifice"
+
+#: jumpnbump_menu.glade:80
+msgid "_Client"
+msgstr "_Client"
+
+#: jumpnbump_menu.glade:100
+msgid "Ser_ver"
+msgstr "Ser_veur"
+
+#: jumpnbump_menu.glade:121
+msgid "Mode"
+msgstr "Mode"
+
+#: jumpnbump_menu.glade:230
+msgid "Remote server ip/name"
+msgstr "Serveur distant ip/nom"
+
+#: jumpnbump_menu.glade:237 jumpnbump_menu.glade:742
+msgid "*"
+msgstr "*"
+
+#: jumpnbump_menu.glade:251
+msgid "Your are player number?"
+msgstr "Votre numéro de joueur"
+
+#: jumpnbump_menu.glade:279
+msgid "_Number of remote clients:"
+msgstr "_Nombre de clients distants"
+
+#: jumpnbump_menu.glade:304
+msgid "Rem_ote server:"
+msgstr "Serveur _distant"
+
+#: jumpnbump_menu.glade:364
+msgid "Network"
+msgstr "Réseau"
+
+#: jumpnbump_menu.glade:411
+msgid "Fullscr_een"
+msgstr "Pl_ein écran"
+
+#: jumpnbump_menu.glade:429
+msgid "No _gore"
+msgstr "Pas de san_g"
+
+#: jumpnbump_menu.glade:447
+msgid "_Double resolution"
+msgstr "Résolution dou_blée"
+
+#: jumpnbump_menu.glade:465
+msgid "_Mirror level"
+msgstr "Niveau en _miroir"
+
+#: jumpnbump_menu.glade:484
+msgid "Graphics"
+msgstr "Vidéo"
+
+#: jumpnbump_menu.glade:525
+msgid "No so_und"
+msgstr "Pas de _son"
+
+#: jumpnbump_menu.glade:543
+msgid "No f_lies"
+msgstr "Pas de mouc_hes"
+
+#: jumpnbump_menu.glade:561
+msgid "_With music but without sound."
+msgstr "Ave_c musique mais sans son"
+
+#: jumpnbump_menu.glade:580
+msgid "Sound"
+msgstr "Son"
+
+#: jumpnbump_menu.glade:671
+msgid "_Run"
+msgstr "_Jouer"
+
+#: jumpnbump_menu.glade:700
+msgid "_About"
+msgstr "_A propos"
+
+#: jumpnbump_menu.glade:719
+msgid "About"
+msgstr "À propos"
+
+#: jumpnbump_menu.glade:740
+msgid "Jump n Bump menu 0.6"
+msgstr "Jump n Bump menu 0.6"
+
+#: jumpnbump_menu.glade:755
+msgid ""
+"Copyright (c) 2002 Martin Willemoes Hansen <mwh@sysrq.dk>\n"
+"\n"
+"Jump n Bump starter.\n"
+"\n"
+"Gtk+ and Python rocks!!"
+msgstr ""
+"Copyright (c) 2002 Martin Willemoes Hansen <mwh@sysrq.dk>\n"
+"\n"
+"Lanceur pour Jump'n Bump.\n"
+"\n"
+"Gtk+ et Python, c'est bon!"
+
+#: jumpnbump_menu.glade:836
+msgid "_Ok"
+msgstr "_Ok"

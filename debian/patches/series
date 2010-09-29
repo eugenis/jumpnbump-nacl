@@ -1,0 +1,7 @@
+exit-fullscreen.patch
+safe-temporary-files.patch
+use-usr-share-games.patch
+do-not-link-libm.patch
+remove-outdated-network-info.patch
+remove-XF86Config-information.patch
+handle-SDL-quit-event.patch

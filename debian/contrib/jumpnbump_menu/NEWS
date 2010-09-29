@@ -1,0 +1,27 @@
+0.6
+===
+o A couple of HIG issues where fixed.
+
+0.5
+===
+o GUI fixes.
+
+0.4
+===
+o Level preview implemented
+
+0.3
+===
+o UI tweaks.
+o jumpbump.dat is default level
+o Path to levels and binary has changed.
+
+0.2
+===
+o Added Makefile for installing/uninstalling
+o Fixed mirror checkbox.
+o Does not have to be run from shell.
+
+0.1
+===
+o Initial release.

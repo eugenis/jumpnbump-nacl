@@ -1,0 +1,138 @@
+.TH jumpnbump 6 "June 4th, 2006"
+.SH NAME
+jumpnbump \- Cute multiplayer platform game with bunnies
+.SH SYNOPSIS
+jumpnbump \fR[ options... ]
+jumpnbump-menu
+.SH DESCRIPTION
+You, as a bunny, have to jump on your opponents to make them
+explode. It's a true multiplayer game, you can't play this alone.
+It has network support.
+.br
+Use the jumpnbump-menu command to launch a graphical menu allowing
+you to select the level and set any command line parameter.
+.SH OPTIONS
+.IP "-h"
+Print help.
+.IP "-v"
+Print version.
+.IP "-dat \fIlevelname\fR"
+Load \fIlevelname\fR and use it as the level for this game.
+.IP "-server \fIplayercount\fR"
+Start as server waiting for players.
+.IP "-connect \fIhostname\fR"
+Connect (using a network) to another person running jump'n'bump on
+\fIhostname\fR.
+.IP "-player \fInum\fR"
+Set main player to num (0-3).  Needed for networking.
+.IP "-fireworks"
+Run the program in "screensaver" mode. This is useful with \-fullscreen.
+.IP "-fullscreen"
+Run jump'n'bump in fullscreen mode.
+.IP "-nosound"
+Play without sound.
+.IP "-nogore"
+Play without blood.
+.IP "-noflies"
+Disable flies.
+.IP "-mirror"
+Play with mirrored level.
+.IP "-scaleup"
+Play with doubled resolution (800x512).
+.IP "-musicnosound"
+Play with music but without sound.
+.SH USAGE
+The goal of the game is to jump on the other players. Each rabbit has
+three control keys.
+.IP "Player 1 (Dott)"
+Left - Left
+.br
+Right - Right
+.br
+Jump - Up
+.IP "Player 2 (Jiffy)"
+Left - A
+.br
+Right - D
+.br
+Jump - W
+.IP "Player 3 (Fizz)"
+Left - J
+.br
+Right - L
+.br
+Jump - I
+.IP "Player 4 (Mijji)"
+Left - 4
+.br
+Right - 5
+.br
+Jump - 8
+.IP "In the game"
+Turn on/off computer play (AI) of bunny 1 - 1
+.br
+Turn on/off computer play (AI) of bunny 2 - 2
+.br
+Turn on/off computer play (AI) of bunny 3 - 3
+.br
+Turn on/off computer play (AI) of bunny 4 - 4
+.br
+.SH SECRETS
+You can type these while in the game
+  jetpack - you can fly
+  pogostick - the bunnies keep jumping
+  bunniesinspace - gravity is lower, you can jump higher
+  lordoftheflies - the flies are attracted
+  bloodisthickerthanwater - water turns to blood
+.SH LEVELS
+There are two programs in /usr/lib/jumpnbump to help you make
+your own levels: pack and unpack.
+.IP pack
+.br
+/usr/lib/jumpnbump/pack \-o /tmp/newlevel.dat <file1> <file2> <file3> ...
+.br
+or you can just put all the files in a dir, cd to
+that dir and do
+.br
+/usr/lib/jumpnbump/pack \-o /tmp/newlevel.dat *
+.br 
+and it will put all the files
+in the current dir inside the packfile. Don't try things like 
+pack \-o stuff.dat ../file.c because it will add ../file.c as the filename in the packfile, which won't work.
+.br
+.IP unpack
+.br
+/usr/lib/jumpnbump/unpack level.dat
+.br
+will unpack it in the current directory.
+.IP gobpack
+.br
+With gobpack you can convert .gob files (which are sprites, 
+described in /usr/share/doc/jumpnbump/gob.txt) into .pcx files 
+which you can edit with The Gimp for example, then convert back 
+to a .gob and use it in your own level.
+.br
+/usr/lib/jumpnbump/gobpack \-u font menu.pcx
+.br
+will unpack font.gob using the color palette from menu.pcx and 
+write the files font.pcx font.txt. The other gob files should 
+use level.pcx for the correct palette.
+.br
+/usr/lib/jumpnbump/gobpack font
+.br
+will generate font.gob from font.pcx and the specifications 
+in font.txt. The .pcx files should be resaved with another 
+program, as they are not packed and are thus very large. 
+.SH AUTHORS
+.PP
+Chuck Mason <cemason@users.sourceforge.net>, Jon Atkins <jcatki@home.com>,
+Philippe Brochard <phil.brochard@wanadoo.fr>, G\[:u]rkan Seng\[:u]n <tarzeau@space.ch>,
+and "timecop" <timecop@japan.co.jp> are the authors of jump'n'bump.
+.PP
+This program is a UNIX port of the old DOS game by brainchilddesign. 
+.PP
+This manual page was written for the Debian GNU/Linux distribution because
+the original program does not have a manual page.
+.PP
+This manual page was written by Joe Wreschnig <piman@sacredchao.net>, for the
+Debian GNU/Linux system (but may be used by others).

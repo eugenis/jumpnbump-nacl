@@ -1,0 +1,38 @@
+This package was debianized by Ivo Timmermans <ivo@debian.org> on
+Wed, 21 Mar 2001 11:37:29 +0100.
+
+It was downloaded from http://jumpbump.mine.nu/
+
+Upstream Authors: Chuck Mason <cemason@users.sourceforge.net>,
+                  Jon Atkins <jcatki@home.com>,
+		  Philippe Brochard <phil.brochard@wanadoo.fr>,
+		  Gürkan Sengün <tarzeau@space.ch>,
+		  "timecop" <timecop@japan.co.jp>
+
+Copyright: (C) 2001-2004 Chuck Mason et al
+
+Jump'n'Bump is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+Jump'n'Bump is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+On Debian systems, the complete text of the GNU General Public License can
+be found in /usr/share/common-licenses/GPL-2.
+
+The file `dos/libdj.a' was removed as no source is provided in the archive.
+
+This package also includes the following code:
+
+  The python menu in jumpnbump_menu is written by
+    Martin Willemoes Hansen <mwh@sysrq.dk>
+
+  and was downloaded from
+    http://www.sysrq.dk/applications
+
+  It is also licensed under the terms of the GPL.
+

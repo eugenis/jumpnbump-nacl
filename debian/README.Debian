@@ -1,0 +1,24 @@
+Playing against the computer
+-----------------------------
+
+The trick is to start the game as if you were playing with more people on
+the same computer, then press the keys to let these players be controlled
+by the AI.
+
+So you grab more than one bunny and jump over the log in the welcome screen
+and then you start the game and enable AI for bunnies other than the one you
+want to control.  The keys to enable AI are the numbers 1, 2, 3 and 4.
+
+
+Secrets
+--------
+
+Type the following during the game to toggle them on or off:
+
+  jetpack
+  pogostick
+  lordoftheflies
+  bunniesinspace
+  bloodisthickerthanwater
+
+ -- Francois Marier <francois@debian.org>  Wed, 11 Jul 2007 09:30:40 +1200

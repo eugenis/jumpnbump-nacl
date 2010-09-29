@@ -1,0 +1,91 @@
+#!/usr/bin/make -f
+# Sample debian/rules that uses debhelper.
+# GNU copyright 1997 to 1999 by Joey Hess.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+include /usr/share/quilt/quilt.make
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+
+	touch configure-stamp
+
+build: configure-stamp build-stamp
+build-stamp: $(QUILT_STAMPFN)
+	dh_testdir
+
+	$(MAKE) PREFIX=/usr all data
+	$(MAKE) -C debian/contrib/jumpnbump_menu PREFIX=/usr all
+
+	touch build-stamp
+
+clean: unpatch
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp
+
+	[ ! -f Makefile ] || $(MAKE) clean
+	$(MAKE) -C debian/contrib/jumpnbump_menu clean
+	rm -f data/font.gob
+
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	install -o root -g root -m 755 jumpnbump $(CURDIR)/debian/jumpnbump/usr/games/jumpnbump
+	install -o root -g root -m 755 jumpnbump.svgalib $(CURDIR)/debian/jumpnbump/usr/games/jumpnbump.svgalib
+	install -o root -g root -m 755 jumpnbump.fbcon $(CURDIR)/debian/jumpnbump/usr/games/jumpnbump.fbcon
+	install -o root -g root -m 755 jnbpack $(CURDIR)/debian/jumpnbump/usr/lib/jumpnbump/pack
+	install -o root -g root -m 755 jnbunpack $(CURDIR)/debian/jumpnbump/usr/lib/jumpnbump/unpack
+	install -o root -g root -m 755 gobpack $(CURDIR)/debian/jumpnbump/usr/lib/jumpnbump/gobpack
+	install -o root -g root -m 755 -d $(CURDIR)/debian/jumpnbump/usr/share/games/jumpnbump
+	install -o root -g root -m 644 debian/jumpnbump.xpm $(CURDIR)/debian/jumpnbump/usr/share/pixmaps/jumpnbump.xpm
+	install -o root -g root -m 644 debian/jumpnbump.desktop $(CURDIR)/debian/jumpnbump/usr/share/applications/jumpnbump.desktop
+	install -o root -g root -m 644 data/jumpbump.dat $(CURDIR)/debian/jumpnbump/usr/share/games/jumpnbump/
+
+	$(MAKE) -C debian/contrib/jumpnbump_menu PREFIX=$(CURDIR)/debian/jumpnbump/usr install
+
+	# Man page links
+	ln -s jumpnbump.6.gz $(CURDIR)/debian/jumpnbump/usr/share/man/man6/jumpnbump.svgalib.6.gz
+	ln -s jumpnbump.6.gz $(CURDIR)/debian/jumpnbump/usr/share/man/man6/jumpnbump-menu.6.gz
+	ln -s jumpnbump.6.gz $(CURDIR)/debian/jumpnbump/usr/share/man/man6/jumpnbump.fbcon.6.gz
+	ln -s jumpnbump.6.gz $(CURDIR)/debian/jumpnbump/usr/share/man/man6/jumpnbump-pack.6.gz
+	ln -s jumpnbump.6.gz $(CURDIR)/debian/jumpnbump/usr/share/man/man6/jumpnbump-unpack.6.gz
+	ln -s jumpnbump.6.gz $(CURDIR)/debian/jumpnbump/usr/share/man/man6/jumpnbump-gobpack.6.gz
+
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installexamples
+	dh_installmenu
+	dh_installcron
+	dh_installman debian/jumpnbump.6
+	dh_installinfo
+	dh_installchangelogs ChangeLog
+	dh_desktop
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure

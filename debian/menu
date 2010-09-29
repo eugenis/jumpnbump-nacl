@@ -1,0 +1,3 @@
+?package(jumpnbump):needs="X11" section="Games/Action" \
+  title="Jump'n'Bump" command="/usr/games/jumpnbump-menu" \
+  icon="/usr/share/pixmaps/jumpnbump.xpm"

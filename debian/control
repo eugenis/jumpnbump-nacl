@@ -1,0 +1,21 @@
+Source: jumpnbump
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Ansgar Burchardt <ansgar@43-1.org>
+Build-Depends: debhelper (>= 6), quilt, libsdl1.2-dev (>= 1.2.2-3.1), libsdl-mixer1.2-dev (>= 1.2.0-1.1), libsdl-net1.2-dev (>= 1.2.0-5.1)
+Standards-Version: 3.8.0
+Homepage: http://jumpbump.mine.nu/
+Vcs-Git: git://git.debian.org/git/pkg-games/jumpnbump.git
+Vcs-Browser: http://git.debian.org/?p=pkg-games/jumpnbump.git
+
+Package: jumpnbump
+Architecture: any
+Suggests: jumpnbump-levels
+Depends: ${shlibs:Depends}, imagemagick, python, python-glade2, python-gtk2
+Description: cute multiplayer platform game with bunnies
+ You, as a bunny, have to jump on your opponents to make them
+ explode.  It's a true multiplayer game, you can't play this alone.
+ It has network support.
+ .
+ This program is a unix port of the old DOS game by brainchilddesign.

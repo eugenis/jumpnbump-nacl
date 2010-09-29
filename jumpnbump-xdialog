@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# User: Setup here the location of Jump'n Bump stuff in your system
+
+JUMPNBUMP_BINARY=/usr/local/games/jumpnbump
+JUMPNBUMP_LEVELS_DIR=/usr/local/share/jumpnbump/
+
+# Show a welcome message
+
+Xdialog --title "Jump 'n Bump" --msgbox "Welcome to the Jump 'n Bump dialog!\nby Ricardo Cruz <rick2@aeiou.pt>\nA few options will be presented in the following dialog.\nThen, you may choose the level you want to play\n\n(In case this isn't working properly, open this file and edit JnB's locations.)" 0 0
+
+# Ask user for Options and parse them
+
+OPTIONS=`Xdialog --title "Select Options - Jump 'n Bump" --separator " " --checklist "Options:" 0 0 0 1 "Fullscreen" on 2 "Disable sound" off 3 "Disable gore" off 4 "Double resolution" off 5 "Mirror level" off 2>&1`
+
+# cancel pressed, quit
+if [ $? != 0 ]; then
+  exit 0
+fi
+
+ARGUMENTS=""
+
+for OPT in $OPTIONS
+do
+case $OPT in
+  '1') ARGUMENTS="$ARGUMENTS -fullscreen";;
+  '2') ARGUMENTS="$ARGUMENTS -nosound";;
+  '3') ARGUMENTS="$ARGUMENTS -nogore";;
+  '4') ARGUMENTS="$ARGUMENTS -scaleup";;
+  '5') ARGUMENTS="$ARGUMENTS -mirror";;
+  *) echo "Warning: unknown option";;
+esac
+done
+
+# Ask user for a level
+# (Even after running the game, ask for levels, until user presses Cancel button or Esc key)
+
+while [ 1 ]
+	do
+
+LEVEL_FILE=`Xdialog --title "Choose a Level - Jump 'n Bump" --fselect $JUMPNBUMP_LEVELS_DIR 0 0 2>&1`
+# "*.dat | Levels"`
+
+if [ $LEVEL_FILE ]; then
+	$JUMPNBUMP_BINARY $ARGUMENTS -dat $LEVEL_FILE
+
+else
+	exit  0;
+fi
+
+done
+
+

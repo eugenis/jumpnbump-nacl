@@ -1,0 +1,261 @@
+jumpnbump (1.50+dfsg1-2) unstable; urgency=low
+
+  [ Francois Marier ]
+  * Remove myself from uploaders
+
+  [ Ansgar Burchardt ]
+  * Use quilt for patch management, move some files to debian/
+  * handle SQL quit event (Closes: #487333)
+  * exit fullscreen mode early to avoid crash (Closes: #432361)
+  * Use Makefile to install jumpnbump-menu
+  * Add i18n for jumpnbump-menu (Closes: #516850) - thanks to Stéphane
+    Blondon <stephane.blondon@gmail.com>
+  * Do not link jnbpack, jnbunpack against libm
+  * Mention GPL version in debian/copyright
+
+ -- Ansgar Burchardt <ansgar@43-1.org>  Tue, 03 Mar 2009 01:40:20 +0100
+
+jumpnbump (1.50+dfsg1-1) unstable; urgency=high
+
+  * Urgency set to high as this upload closes a security issue:
+  * Fix insecure handling of /tmp (Closes: #500611)
+  * Fix path to utility programs in jumpnbump-menu (Closes: #500340).
+    Thanks to Kilian Kilger <kilian@nihilnovi.de> for the patch.
+  * Repackage source to remove dos/libdj.a (no source provided),
+    mention this in debian/copyright
+  * Bump Standards Version to 3.8.0 (no changes)
+  * Add myself to Uploaders.
+
+ -- Ansgar Burchardt <ansgar@43-1.org>  Mon, 29 Sep 2008 22:01:59 +0200
+
+jumpnbump (1.50-12) unstable; urgency=low
+
+  * Fix vcs-browser field to refer to the right package
+  * Bump debhelper compatibility to 6
+  * Removed the watch file
+  * Move utilities to /usr/lib/jumpnbump and update manpage
+  * Fix hyphens in manpage
+
+ -- Francois Marier <francois@debian.org>  Tue, 03 Jun 2008 14:31:04 +1200
+
+jumpnbump (1.50-11) unstable; urgency=low
+
+  * Switch to collaborative maintenance with the Games Team
+  * Mention secrets in README.Debian
+  * Improve copyright statement in debian/copyright
+  * Update upstream URL for the menu
+
+ -- Francois Marier <francois@debian.org>  Sat, 26 Apr 2008 15:10:30 +1200
+
+jumpnbump (1.50-10) unstable; urgency=low
+
+  * Call dh_desktop from debian/rules
+  * Bump Standards-Version up to 3.7.3 (no other changes)
+
+ -- Francois Marier <francois@debian.org>  Mon, 24 Dec 2007 02:59:21 -0500
+
+jumpnbump (1.50-9) unstable; urgency=low
+
+  * Rename XS-Vcs-* fields to Vcs-*
+
+ -- Francois Marier <francois@debian.org>  Tue, 20 Nov 2007 15:43:47 +1300
+
+jumpnbump (1.50-8) unstable; urgency=low
+
+  * Added README.Debian to describe how to play against the computer
+  * debian/rules:
+    - Fixed "make distclean" lintian warning
+  * Add homepage field in debian/control
+  * Add collab-maint repo in debian/control
+  * Change the menu section to Games/Action (menu transition)
+  * Remove the Application category in the free desktop menu
+
+ -- Francois Marier <francois@debian.org>  Fri, 19 Oct 2007 16:36:36 +1300
+
+jumpnbump (1.50-7) unstable; urgency=low
+
+  * Add a menu item for GNOME and KDE (closes: #422503)
+  * Better xpm icon
+  * Fix the watch file
+
+ -- Francois Marier <francois@debian.org>  Mon, 07 May 2007 08:44:10 +1200
+jumpnbump (1.50-6) unstable; urgency=low
+
+  * Add the AI keyboard shortcuts to the manpage (closes: #369498)
+  * Bump Standards-Version up to 3.7.2 (no changes)
+
+ -- Francois Marier <francois@debian.org>  Sun,  4 Jun 2006 01:38:15 -0400
+
+jumpnbump (1.50-5) unstable; urgency=low
+
+  * Apply patch (thanks to Dan Carpenter!) to exit fullscreen mode when you
+    quit (closes: #338705)
+  * Fixed charset issue in the manpage to get rid of a lintian warning.
+  * Fixed watch file
+
+ -- Francois Marier <francois@debian.org>  Wed, 18 Jan 2006 23:48:50 -0500
+
+jumpnbump (1.50-4) unstable; urgency=low
+
+  * Fix the manpage symlinks 
+
+ -- Francois Marier <francois@debian.org>  Mon, 27 Jun 2005 10:02:46 -0400
+
+jumpnbump (1.50-3) unstable; urgency=low
+
+  * New maintainer (closes: #284871): thanks Sam and Gürkan for your work!
+  * Bump Standards-Version up to 3.6.2 (no changes)
+  * Bump debian/compat and Debhelper dependency to version 4
+  * Remove debug patch (closes: #277107)
+  * Remove README.Network and outdated network information in README (closes: #314221)
+  * Revert PowerPC patch, need a better one (closes: #283952)
+  * Removed useless files in /usr/share/doc/jumpnbump
+  * Update manpage with current command line parameters
+  * Make the package Lintian and Linda clean
+  * Add watch file
+
+ -- Francois Marier <francois@debian.org>  Sun, 26 Jun 2005 13:02:29 -0400
+
+jumpnbump (1.50-2) unstable; urgency=low
+
+  * main.c: fix for a PowerPC crash, courtesy of James Morrison
+    (Closes: #277737).
+
+ -- Sam Hocevar (Debian packages) <sam+deb@zoy.org>  Sun, 24 Oct 2004 13:30:39 +0200
+
+jumpnbump (1.50-1) unstable; urgency=low
+
+  * New upstream release (Closes: #259975).
+  * New maintainers (Sam Hocevar and Gürkan Sengün).
+  * debian/control:
+    + Set policy to 3.6.1.1.
+    + Uncapitalised short description.
+  * debian/menu:
+    + Quoted strings where appropriate.
+  * debian/rules:
+    + Use debian/compat instead of DH_COMPAT.
+    + Replaced deprecated call to dh_installmanpages with dh_installman.
+
+ -- Sam Hocevar (Debian packages) <sam+deb@zoy.org>  Tue, 20 Jul 2004 09:50:36 +0200
+
+jumpnbump (1.41-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control: Update Standards-Version.
+
+ -- Ivo Timmermans <ivo@debian.org>  Sat, 10 May 2003 00:03:53 +0200
+
+jumpnbump (1.40-6) unstable; urgency=low
+
+  * jumpnbump_menu/jumpnbump_menu.py: Undo hackery.  (Closes: #182448)
+
+ -- Ivo Timmermans <ivo@debian.org>  Sun,  9 Mar 2003 18:14:11 +0100
+
+jumpnbump (1.40-5) unstable; urgency=low
+
+  * The “brown paper bag”-release.
+  * Normally I don't give names to releases, but I feel really bad
+    about this bug :(
+  * debian/rules: Merge the two Depends lines.  (Closes: #170935)
+
+ -- Ivo Timmermans <ivo@debian.org>  Wed, 27 Nov 2002 18:19:40 +0100
+
+jumpnbump (1.40-4) unstable; urgency=low
+
+  * Follow the suggestions made by Markus Oberhumer:
+      - debian/control: Remove conflicts for python-gtk/-glade;
+      - jumpnbump_menu.py: Insert the path to the GTK modules to the
+        front of the list, rather than at the end.
+
+ -- Ivo Timmermans <ivo@debian.org>  Wed, 13 Nov 2002 09:48:13 +0100
+
+jumpnbump (1.40-3) unstable; urgency=low
+
+  * Fix several signed/unsigned issues and missing declarations.
+    (Closes: #164630, #164465)
+  * debian/menu, debian/rules: Fix location of icon. (Closes: #167741)
+  * debian/control: Depend on imagemagick, python-gtk2 and python-glade2,
+    and conflict with python-gtk and python-glade.  (Closes: #164630)
+
+ -- Ivo Timmermans <ivo@debian.org>  Mon, 11 Nov 2002 20:27:55 +0100
+
+jumpnbump (1.40-2) unstable; urgency=low
+
+  * debian/rules, globals.pre: Make the game look in
+    /usr/share/games/jumpnbump instead of /usr/local/share/jumpnbump...
+
+ -- Ivo Timmermans <ivo@debian.org>  Wed,  9 Oct 2002 21:01:32 +0200
+
+jumpnbump (1.40-1) unstable; urgency=low
+
+  * New upstream release:
+      - Includes joystick patch (really!). (Closes: 156395)
+  * jumpnbump_menu: New dir.
+  * debian/rules: Install the menu from jumpnbump_menu instead of
+    jnbmenu.tcl.
+  * debian/copyright: Updated to include jumpnbump_menu.
+  * debian/control: Recommend python and imagemagick instead of depending
+    on tcl.
+
+ -- Ivo Timmermans <ivo@debian.org>  Tue,  8 Oct 2002 15:09:28 +0200
+
+jumpnbump (1.39-2) unstable; urgency=low
+
+  * debian/rules: Install jumpnbump.xpm.
+
+ -- Ivo Timmermans <ivo@debian.org>  Sun, 18 Aug 2002 13:44:50 +0200
+
+jumpnbump (1.39-1) unstable; urgency=low
+
+  * New upstream release:-
+      - Includes new option -noflies to disable the buzzing of flies;
+        (Closes: #156397)
+      - Includes joystick support. (Closes: #156395)
+  * debian/rules: Install some utility programs:
+      - gobpack (/usr/bin/jumpnbump-gobpack)
+      - jnbpack (/usr/bin/jumpnbump-pack)
+      - jnbmenu.tcl (/usr/games/jumpnbump-menu)
+      - jnbunpack (/usr/bin/jumpnbump-unpack)
+
+ -- Ivo Timmermans <ivo@debian.org>  Sat, 17 Aug 2002 14:10:57 +0200
+
+jumpnbump (1.3-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #143808)
+  * Install pack and unpack as jumpnbump-{,un}pack
+
+ -- Ivo Timmermans <ivo@debian.org>  Fri, 14 Jun 2002 12:20:21 +0200
+
+jumpnbump (1.1-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Ivo Timmermans <ivo@debian.org>  Fri,  1 Mar 2002 13:12:16 +0100
+
+jumpnbump (0.72-4) unstable; urgency=low
+
+  * Added patch by Michael Dänzer, hopefully fixes architecture
+    problems. (Closes: #131974)
+
+ -- Ivo Timmermans <ivo@debian.org>  Wed, 13 Feb 2002 14:35:41 +0100
+
+jumpnbump (0.72-3) unstable; urgency=low
+
+  * Build-depends on the latest sdl libraries (Closes: #115860)
+  * Added extra libraries when linking.
+
+ -- Ivo Timmermans <ivo@debian.org>  Sun, 21 Oct 2001 15:40:15 +0200
+
+jumpnbump (0.72-2) unstable; urgency=low
+
+  * Make jumpnbump suggest jumpnbump-levels.
+  * Include a jumpnbump(6) manual page. (Closes: #94773)
+  * Compile with new sdl libraries.
+
+ -- Ivo Timmermans <ivo@debian.org>  Tue,  8 May 2001 22:15:09 +0200
+
+jumpnbump (0.72-1) unstable; urgency=low
+
+  * Initial Release. (Closes: #90550)
+
+ -- Ivo Timmermans <ivo@debian.org>  Wed, 21 Mar 2001 11:37:29 +0100
