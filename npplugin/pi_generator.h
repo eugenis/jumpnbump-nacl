@@ -26,7 +26,7 @@ class PiGenerator {
 
   NPObject* GetScriptableObject();
   NPError SetWindow(NPWindow* window);
-  void HandleEvent(NPPepperEvent* event);
+  void HandleEvent(NPPepperEvent* nppevent);
   bool Paint();
   bool quit() const {
     return quit_;

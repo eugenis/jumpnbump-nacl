@@ -26,6 +26,7 @@ extern int jumpnbump_main(int argc, char *argv[]);
 
   // temporary hacks
 #include <SDL.h>
+#include <SDL_nacl.h>
 }
 
 // This is called by the brower when the 2D context has been flushed to the
@@ -44,7 +45,7 @@ PiGenerator::PiGenerator(NPP npp)
       quit_(false),
       thread_(0),
       pi_(0.0) {
-  SDL_NACL_SetNPP((void*)npp);
+  SDL_NACL_SetNPP(npp);
   ScriptingBridge::InitializeIdentifiers();
 }
 
@@ -84,11 +85,12 @@ NPError PiGenerator::SetWindow(NPWindow* window) {
   return NPERR_NO_ERROR;
 }
 
-void PiGenerator::HandleEvent(NPPepperEvent* npevent) {
+void PiGenerator::HandleEvent(NPPepperEvent* nppevent) {
+  SDL_NACL_PushEvent(nppevent);
 }
 
 bool PiGenerator::Paint() {
-  printf("Paint() stub\n");
+  // printf("Paint() stub\n");
   SDL_WM_SetCaption("Dear SDL, this is your chance to flush the NPDevice context.", NULL);
   return true;
 }

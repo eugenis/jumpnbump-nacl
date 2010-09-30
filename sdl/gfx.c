@@ -324,7 +324,7 @@ void flippage(int page)
 	unsigned char *src;
 	unsigned char *dest;
 
-	printf("flip!\n");
+	/* printf("flip!\n"); */
 
 	assert(drawing_enable==0);
 
