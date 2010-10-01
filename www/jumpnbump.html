@@ -7,7 +7,7 @@
   found in the LICENSE file.
   -->
   <head>
-    <title>Monte Carlo Estimate for Pi</title>
+    <title>Jump'n'Bump NativeClient demo</title>
     <script type="text/javascript">
       var pi_generator = null;
       var paintInterval = null;
@@ -15,30 +15,47 @@
       function moduleDidLoad() {
         pi_generator = document.getElementById('pi_generator');
         paintInterval = setInterval(
-            "document.form.pi.value = pi_generator.paint()", 5);
+            "pi_generator.paint()", 5);
       }
 
       function pageDidUnload() {
         clearInterval(paintInterval);
       }
+
+      function zzz(event, press) {
+      var key;
+      var keychar;
+
+      if (window.event)
+        key = window.event.keyCode;
+      else if (e)
+        key = e.which;
+      else
+        return true;
+      keychar = String.fromCharCode(key);
+      keychar = keychar.toLowerCase();
+      if (pi_generator) {
+      pi_generator.key_event(key, press);
+      }
+      return true;
+      }
+
+      function zzz_press(event) {
+      return zzz(event, 1);
+      }
+
+      function zzz_release(event) {
+      return zzz(event, 0);
+      }
     </script>
   </head>
-    <body id="bodyId" onunload="pageDidUnload()">
-    <h1>Monte Carlo Estimate for Pi</h1>
+    <body id="bodyId" onunload="pageDidUnload()" onkeydown="return zzz_press(event)" onkeyup="return zzz_release(event)">
+    <h1>Jump'n'Bump NativeClient demo</h1>
     <p>
-      The Native Client module executed in this page creates a thread
-      that estimates pi (&pi;) using the Monte Carlo method.
-      The thread randomly puts 1,000,000,000 points
-      inside a square that shares two sides with a quarter circle (a quadrant).
-      Because the area of
-      the quadrant is r&#178;&pi;/4
-      and the area of
-      the square is r&#178;,
-      dividing the number of points inside the quadrant
-      by the number of points inside the square gives us
-      an estimate of &pi;/4.
-      The textbox under the square
-      shows the current estimate of &pi;.
+      This is a Native Client port of an awesome game. Bunnies are controlled with WASD, arrows and mouse buttons. The fourth one is unavailable.
+      <p>
+      You need Chrome with --enable-nacl option for this to work.
+      Sources are <a href=http://github.com/eugenis/jumpnbump-nacl>here</a> and <a href=http://github.com/eugenis/sdl-nacl>here</a>.
     </p>
     <!-- For development, use a #develop location, which loads the develop
     version of the module.
@@ -59,9 +76,9 @@
         // shows how to load multi-architecture modules.  Each entry in the
         // table is a key-value pair: the key is the runtime ('x86-32',
         // 'x86-64', etc.); the value is a URL for the desired NaCl module.
-        var nexes = 'x86-32: jumpnbump_x86_32.nexe\n'
+        var nexes = 'x86-32: jumpnbump_x86_64.nexe\n'
                     + 'x86-64: jumpnbump_x86_64.nexe\n'
-                    + 'ARM: jumpnbump_arm.nexe ';
+                    + 'ARM: jumpnbump_x86_64.nexe ';
         contentDiv.innerHTML = '<embed name="nacl_module" '
                                + 'id="pi_generator" '
                                + 'width=400 height=256 '
@@ -76,8 +93,5 @@
       }
     </script>
     <br />
-    <form name="form">
-      <input type="text" size="15" name="pi" />
-    </form>
   </body>
 </HTML>
