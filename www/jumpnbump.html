@@ -9,17 +9,10 @@
   <head>
     <title>Jump'n'Bump NativeClient demo</title>
     <script type="text/javascript">
-      var pi_generator = null;
-      var paintInterval = null;
-
       function moduleDidLoad() {
-        pi_generator = document.getElementById('pi_generator');
-        paintInterval = setInterval(
-            "pi_generator.paint()", 5);
       }
 
       function pageDidUnload() {
-        clearInterval(paintInterval);
       }
 
       function zzz(event, press) {

@@ -105,8 +105,6 @@ bool PiGenerator::KeyEvent(int32_t key, int32_t pressed) {
 
 
 bool PiGenerator::Paint() {
-  // printf("Paint() stub\n");
-  SDL_WM_SetCaption("Dear SDL, this is your chance to flush the NPDevice context.", NULL);
   return true;
 }
     
