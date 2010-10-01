@@ -242,6 +242,10 @@ int filelength(int handle)
 #endif
 
 
+static int MAX(int a, int b) {
+  return a < b ? b : a;
+}
+
 /* networking shite. */
 
 int client_player_num = -1;
@@ -1860,8 +1864,8 @@ void steer_players(void)
 				if (player[c1].action_left && player[c1].action_right) {
 					if (player[c1].direction == 0) {
 						if (player[c1].action_right) {
-							s1 = (player[c1].x >> 16);
-							s2 = (player[c1].y >> 16);
+                                                  s1 = MAX(player[c1].x >> 16, 0);
+                                                  s2 = MAX(player[c1].y >> 16, 0);
 							if (ban_map[(s2 + 16) >> 4][(s1 + 8) >> 4] == BAN_ICE) {
 								if (player[c1].x_add < 0)
 									player[c1].x_add += 1024;
@@ -1892,8 +1896,8 @@ void steer_players(void)
 						}
 					} else {
 						if (player[c1].action_left) {
-							s1 = (player[c1].x >> 16);
-							s2 = (player[c1].y >> 16);
+                                                  s1 = MAX(player[c1].x >> 16, 0);
+                                                  s2 = MAX(player[c1].y >> 16, 0);
 							if (ban_map[(s2 + 16) >> 4][(s1 + 8) >> 4] == BAN_ICE) {
 								if (player[c1].x_add > 0)
 									player[c1].x_add -= 1024;
@@ -1924,8 +1928,8 @@ void steer_players(void)
 						}
 					}
 				} else if (player[c1].action_left) {
-					s1 = (player[c1].x >> 16);
-					s2 = (player[c1].y >> 16);
+                                  s1 = MAX(player[c1].x >> 16, 0);
+                                  s2 = MAX(player[c1].y >> 16, 0);
 					if (ban_map[(s2 + 16) >> 4][(s1 + 8) >> 4] == BAN_ICE) {
 						if (player[c1].x_add > 0)
 							player[c1].x_add -= 1024;
@@ -1954,8 +1958,8 @@ void steer_players(void)
 						player[c1].image = player_anims[player[c1].anim].frame[player[c1].frame].image + player[c1].direction * 9;
 					}
 				} else if (player[c1].action_right) {
-					s1 = (player[c1].x >> 16);
-					s2 = (player[c1].y >> 16);
+                                  s1 = MAX(player[c1].x >> 16, 0);
+                                  s2 = MAX(player[c1].y >> 16, 0);
 					if (ban_map[(s2 + 16) >> 4][(s1 + 8) >> 4] == BAN_ICE) {
 						if (player[c1].x_add < 0)
 							player[c1].x_add += 1024;
@@ -1984,8 +1988,8 @@ void steer_players(void)
 						player[c1].image = player_anims[player[c1].anim].frame[player[c1].frame].image + player[c1].direction * 9;
 					}
 				} else if ((!player[c1].action_left) && (!player[c1].action_right)) {
-					s1 = (player[c1].x >> 16);
-					s2 = (player[c1].y >> 16);
+                                  s1 = MAX(player[c1].x >> 16, 0);
+                                  s2 = MAX(player[c1].y >> 16, 0);
 					if (ban_map[(s2 + 16) >> 4][(s1 + 8) >> 4] == BAN_SOLID || ban_map[(s2 + 16) >> 4][(s1 + 8) >> 4] == BAN_SPRING || (((ban_map[(s2 + 16) >> 4][s1 >> 4] == BAN_SOLID || ban_map[(s2 + 16) >> 4][s1 >> 4] == BAN_SPRING) && ban_map[(s2 + 16) >> 4][(s1 + 15) >> 4] != BAN_ICE) || (ban_map[(s2 + 16) >> 4][s1 >> 4] != BAN_ICE && (ban_map[(s2 + 16) >> 4][(s1 + 15) >> 4] == BAN_SOLID || ban_map[(s2 + 16) >> 4][(s1 + 15) >> 4] == BAN_SPRING)))) {
 						if (player[c1].x_add < 0) {
 							player[c1].x_add += 16384;
@@ -2008,8 +2012,8 @@ void steer_players(void)
 				}
 				if (jetpack == 0) {
 					if (pogostick == 1 || (player[c1].jump_ready == 1 && player[c1].action_up)) {
-						s1 = (player[c1].x >> 16);
-						s2 = (player[c1].y >> 16);
+                                          s1 = MAX(player[c1].x >> 16, 0);
+                                          s2 = MAX(player[c1].y >> 16, 0);
 						if (s2 < -16)
 							s2 = -16;
 						if (ban_map[(s2 + 16) >> 4][s1 >> 4] == BAN_SOLID || ban_map[(s2 + 16) >> 4][s1 >> 4] == BAN_ICE || ban_map[(s2 + 16) >> 4][(s1 + 15) >> 4] == BAN_SOLID || ban_map[(s2 + 16) >> 4][(s1 + 15) >> 4] == BAN_ICE) {
@@ -2075,26 +2079,26 @@ void steer_players(void)
 					player[c1].x_add = 0;
 				}
 				if (player[c1].y > 0) {
-					s1 = (player[c1].x >> 16);
-					s2 = (player[c1].y >> 16);
+                                  s1 = MAX(player[c1].x >> 16, 0);
+                                  s2 = MAX(player[c1].y >> 16, 0);
 					if (ban_map[s2 >> 4][s1 >> 4] == BAN_SOLID || ban_map[s2 >> 4][s1 >> 4] == BAN_ICE || ban_map[s2 >> 4][s1 >> 4] == BAN_SPRING || ban_map[(s2 + 15) >> 4][s1 >> 4] == BAN_SOLID || ban_map[(s2 + 15) >> 4][s1 >> 4] == BAN_ICE || ban_map[(s2 + 15) >> 4][s1 >> 4] == BAN_SPRING) {
 						player[c1].x = (((s1 + 16) & 0xfff0)) << 16;
 						player[c1].x_add = 0;
 					}
-					s1 = (player[c1].x >> 16);
-					s2 = (player[c1].y >> 16);
+					s1 = MAX(player[c1].x >> 16, 0);
+					s2 = MAX(player[c1].y >> 16, 0);
 					if (ban_map[s2 >> 4][(s1 + 15) >> 4] == BAN_SOLID || ban_map[s2 >> 4][(s1 + 15) >> 4] == BAN_ICE || ban_map[s2 >> 4][(s1 + 15) >> 4] == BAN_SPRING || ban_map[(s2 + 15) >> 4][(s1 + 15) >> 4] == BAN_SOLID || ban_map[(s2 + 15) >> 4][(s1 + 15) >> 4] == BAN_ICE || ban_map[(s2 + 15) >> 4][(s1 + 15) >> 4] == BAN_SPRING) {
 						player[c1].x = (((s1 + 16) & 0xfff0) - 16) << 16;
 						player[c1].x_add = 0;
 					}
 				} else {
-					s1 = (player[c1].x >> 16);
+                                  s1 = MAX(player[c1].x >> 16, 0);
 					s2 = 0;
 					if (ban_map[s2 >> 4][s1 >> 4] == BAN_SOLID || ban_map[s2 >> 4][s1 >> 4] == BAN_ICE || ban_map[s2 >> 4][s1 >> 4] == BAN_SPRING || ban_map[(s2 + 15) >> 4][s1 >> 4] == BAN_SOLID || ban_map[(s2 + 15) >> 4][s1 >> 4] == BAN_ICE || ban_map[(s2 + 15) >> 4][s1 >> 4] == BAN_SPRING) {
 						player[c1].x = (((s1 + 16) & 0xfff0)) << 16;
 						player[c1].x_add = 0;
 					}
-					s1 = (player[c1].x >> 16);
+					s1 = MAX(player[c1].x >> 16, 0);
 					s2 = 0;
 					if (ban_map[s2 >> 4][(s1 + 15) >> 4] == BAN_SOLID || ban_map[s2 >> 4][(s1 + 15) >> 4] == BAN_ICE || ban_map[s2 >> 4][(s1 + 15) >> 4] == BAN_SPRING || ban_map[(s2 + 15) >> 4][(s1 + 15) >> 4] == BAN_SOLID || ban_map[(s2 + 15) >> 4][(s1 + 15) >> 4] == BAN_ICE || ban_map[(s2 + 15) >> 4][(s1 + 15) >> 4] == BAN_SPRING) {
 						player[c1].x = (((s1 + 16) & 0xfff0) - 16) << 16;
@@ -2104,8 +2108,8 @@ void steer_players(void)
 
 				player[c1].y += player[c1].y_add;
 
-				s1 = (player[c1].x >> 16);
-				s2 = (player[c1].y >> 16);
+				s1 = MAX((player[c1].x >> 16), 0);
+				s2 = MAX((player[c1].y >> 16), 0);
 				if (ban_map[(s2 + 15) >> 4][(s1 + 8) >> 4] == BAN_SPRING || ((ban_map[(s2 + 15) >> 4][s1 >> 4] == BAN_SPRING && ban_map[(s2 + 15) >> 4][(s1 + 15) >> 4] != BAN_SOLID) || (ban_map[(s2 + 15) >> 4][s1 >> 4] != BAN_SOLID && ban_map[(s2 + 15) >> 4][(s1 + 15) >> 4] == BAN_SPRING))) {
 					player[c1].y = ((player[c1].y >> 16) & 0xfff0) << 16;
 					player[c1].y_add = -400000L;
@@ -2145,8 +2149,8 @@ void steer_players(void)
 					}
 					dj_play_sfx(SFX_SPRING, (unsigned short)(SFX_SPRING_FREQ + rnd(2000) - 1000), 64, 0, 0, -1);
 				}
-				s1 = (player[c1].x >> 16);
-				s2 = (player[c1].y >> 16);
+				s1 = MAX(player[c1].x >> 16, 0);
+				s2 = MAX(player[c1].y >> 16, 0);
 				if (s2 < 0)
 					s2 = 0;
 				if (ban_map[s2 >> 4][s1 >> 4] == BAN_SOLID || ban_map[s2 >> 4][s1 >> 4] == BAN_ICE || ban_map[s2 >> 4][s1 >> 4] == BAN_SPRING || ban_map[s2 >> 4][(s1 + 15) >> 4] == BAN_SOLID || ban_map[s2 >> 4][(s1 + 15) >> 4] == BAN_ICE || ban_map[s2 >> 4][(s1 + 15) >> 4] == BAN_SPRING) {
@@ -2157,8 +2161,8 @@ void steer_players(void)
 					player[c1].frame_tick = 0;
 					player[c1].image = player_anims[player[c1].anim].frame[player[c1].frame].image + player[c1].direction * 9;
 				}
-				s1 = (player[c1].x >> 16);
-				s2 = (player[c1].y >> 16);
+				s1 = MAX(player[c1].x >> 16, 0);
+				s2 = MAX(player[c1].y >> 16, 0);
 				if (s2 < 0)
 					s2 = 0;
 				if (ban_map[(s2 + 8) >> 4][(s1 + 8) >> 4] == BAN_WATER) {
