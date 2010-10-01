@@ -89,6 +89,21 @@ void PiGenerator::HandleEvent(NPPepperEvent* nppevent) {
   SDL_NACL_PushEvent(nppevent);
 }
 
+bool PiGenerator::KeyEvent(int32_t key, int32_t pressed) {
+  NPPepperEvent* event = new NPPepperEvent();
+  event->size = sizeof(NPPepperEvent);
+  event->type = pressed ? NPEventType_KeyDown : NPEventType_KeyUp;
+  event->u.key.modifier = 0;
+  event->u.key.normalizedKeyCode = key;
+
+  SDL_NACL_PushEvent(event);
+
+  delete event;
+
+  return true;
+}
+
+
 bool PiGenerator::Paint() {
   // printf("Paint() stub\n");
   SDL_WM_SetCaption("Dear SDL, this is your chance to flush the NPDevice context.", NULL);
@@ -104,4 +119,3 @@ bool PiGenerator::Paint() {
 
 
 }  // namespace pi_generator
-

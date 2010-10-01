@@ -9,6 +9,7 @@
 namespace pi_generator {
 
 NPIdentifier ScriptingBridge::id_paint;
+NPIdentifier ScriptingBridge::id_key_event;
 
 // Method table for use by HasMethod and Invoke.
 std::map<NPIdentifier, ScriptingBridge::Method>*
@@ -30,6 +31,12 @@ bool ScriptingBridge::InitializeIdentifiers() {
   method_table->insert(
     std::pair<NPIdentifier, Method>(id_paint,
                                     &ScriptingBridge::Paint));
+
+  id_key_event = NPN_GetStringIdentifier("key_event");
+
+  method_table->insert(
+    std::pair<NPIdentifier, Method>(id_key_event,
+                                    &ScriptingBridge::KeyEvent));
 
   property_table =
     new(std::nothrow) std::map<NPIdentifier, Property>;
@@ -118,6 +125,19 @@ bool ScriptingBridge::Paint(const NPVariant* args,
   if (pi_generator) {
     DOUBLE_TO_NPVARIANT(pi_generator->pi(), *result);
     return pi_generator->Paint();
+  }
+  return false;
+}
+
+bool ScriptingBridge::KeyEvent(const NPVariant* args,
+                            uint32_t arg_count,
+                            NPVariant* result) {
+  if (arg_count != 2)
+    return false;
+  PiGenerator* pi_generator = static_cast<PiGenerator*>(npp_->pdata);
+  if (pi_generator) {
+    INT32_TO_NPVARIANT(0, *result);
+    return pi_generator->KeyEvent(NPVARIANT_TO_INT32(args[0]), NPVARIANT_TO_INT32(args[1]));
   }
   return false;
 }

@@ -61,12 +61,14 @@ class ScriptingBridge : public NPObject {
 
   // Draws the quarter-circle image representing the stochasitc PI generator.
   bool Paint(const NPVariant* args, uint32_t arg_count, NPVariant* result);
+  bool KeyEvent(const NPVariant* args, uint32_t arg_count, NPVariant* result);
 
  private:
   NPP npp_;
   NPObject* window_object_;
 
   static NPIdentifier id_paint;
+  static NPIdentifier id_key_event;
 
   static std::map<NPIdentifier, Method>* method_table;
   static std::map<NPIdentifier, Property>* property_table;

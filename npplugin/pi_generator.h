@@ -28,6 +28,7 @@ class PiGenerator {
   NPError SetWindow(NPWindow* window);
   void HandleEvent(NPPepperEvent* nppevent);
   bool Paint();
+  bool KeyEvent(int32_t key, int32_t pressed);
   bool quit() const {
     return quit_;
   }
