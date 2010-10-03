@@ -3,8 +3,18 @@
 
 cd $SDL_DIR
 ./autogen
-CC=$NACL_SDK_ROOT/toolchain/linux_x86/bin/nacl64-gcc ./configure --host=nacl64 --disable-assembly
+CC=$NACL_SDK_ROOT/toolchain/linux_x86/bin/nacl64-gcc ./configure --host=nacl64 --disable-assembly --prefix=$SDL_PREFIX
 make
+make install
+
+
+cd $SDL_MIXER_DIR
+./autogen
+CC=$NACL_SDK_ROOT/toolchain/linux_x86/bin/nacl64-gcc ./configure --host=nacl64 --enable-shared=no \
+    --with-sdl-prefix=$SDL_PREFIX --enable-music-mod=no --enable-music-mp3=no --prefix=$SDL_PREFIX
+make
+make install
+
 
 # Go to jumpnbump dir
 make data

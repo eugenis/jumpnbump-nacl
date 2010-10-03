@@ -76,7 +76,7 @@ NPError PiGenerator::SetWindow(NPWindow* window) {
 
   printf("SetWindow ============================\n");
   if (!window_) { // just the first time
-    int lval = SDL_Init(SDL_INIT_VIDEO);
+    int lval = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     assert(lval >= 0);
     pthread_create(&thread_, NULL, jumpnbump_thread, this);
     window_ = window;

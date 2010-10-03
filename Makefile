@@ -1,7 +1,7 @@
 NACL_CC=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl64-gcc
 NACL_CPP=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl64-g++
-SDL_CFLAGS = -I$(SDL_DIR)/include
-SDL_LIBS = $(SDL_DIR)/build/.libs/libSDL.a -lpthread
+SDL_CFLAGS = -I$(SDL_PREFIX)/include/SDL
+SDL_LIBS = $(SDL_PREFIX)/lib/libSDL_mixer.a $(SDL_PREFIX)/lib/libSDL.a -lpthread
 CFLAGS = -Wall -g -O0 -ffast-math -funroll-loops -Dstricmp=strcasecmp \
 	-Dstrnicmp=strncasecmp -DUSE_SDL -I. $(SDL_CFLAGS) #-DUSE_NET
 LIBS = -lm $(SDL_LIBS) \
