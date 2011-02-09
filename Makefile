@@ -5,10 +5,12 @@ SDL_LIBS = $(SDL_PREFIX)/lib/libSDL_mixer.a $(SDL_PREFIX)/lib/libSDL.a -lpthread
 CFLAGS = -Wall -g -O0 -ffast-math -funroll-loops -Dstricmp=strcasecmp \
 	-Dstrnicmp=strncasecmp -DUSE_SDL -I. $(SDL_CFLAGS) #-DUSE_NET
 LIBS = -lm $(SDL_LIBS) \
-          -lgoogle_nacl_imc \
-          -lgoogle_nacl_npruntime \
-          -lpthread \
-          -lsrpc
+-lppruntime \
+-lppapi_cpp \
+-lgoogle_nacl_platform \
+-lgio \
+-lpthread \
+-lsrpc
 
 
  #-lSDL_mixer -lSDL_net
@@ -20,11 +22,8 @@ BINARIES = $(TARGET) jumpnbump.svgalib jumpnbump.fbcon $(MODIFY_TARGET) \
 	jnbmenu.tcl
 PREFIX ?= /usr/local
 
-NPPLUGIN_OBJS = npplugin/npn_bridge.o \
-          npplugin/npp_gate.o \
-          npplugin/pi_generator.o \
-          npplugin/pi_generator_module.o \
-          npplugin/scripting_bridge.o
+PLUGIN_OBJS = plugin/pi_generator_x86_64.o \
+          plugin/pi_generator_module_x86_64.o
 
 
 .PHONY: data
@@ -42,11 +41,11 @@ $(SDL_TARGET): globals.h
 $(MODIFY_TARGET): globals.h
 	cd modify && make
 
-$(NPPLUGIN_OBJS): npplugin/*.cc npplugin/*.h
-	make -C npplugin
+$(PLUGIN_OBJS): plugin/*.cc plugin/*.h
+	make -C plugin
 
-$(TARGET): $(OBJS) $(NPPLUGIN_OBJS) $(SDL_TARGET) data globals.h
-	$(NACL_CPP) -o $(TARGET) $(OBJS) $(NPPLUGIN_OBJS) $(SDL_TARGET) $(LIBS)
+$(TARGET): $(OBJS) $(PLUGIN_OBJS) $(SDL_TARGET) data globals.h
+	$(NACL_CPP) -o $(TARGET) $(OBJS) $(PLUGIN_OBJS) $(SDL_TARGET) $(LIBS)
 
 $(OBJS): globals.h
 
@@ -66,7 +65,7 @@ clean:
 	cd sdl && make clean
 	cd modify && make clean
 	cd data && make clean
-	cd npplugin && make clean
+	cd plugin && make clean
 	rm -f $(TARGET) *.o globals.h jnbmenu.tcl
 
 # install:

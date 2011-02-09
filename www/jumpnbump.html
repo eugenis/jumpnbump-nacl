@@ -34,11 +34,11 @@
       }
 
       function zzz_press(event) {
-      return zzz(event, 1);
+      // return zzz(event, 1);
       }
 
       function zzz_release(event) {
-      return zzz(event, 0);
+      // return zzz(event, 0);
       }
     </script>
   </head>
@@ -50,41 +50,15 @@
       You need Chrome with --enable-nacl option for this to work.
       Sources are <a href=http://github.com/eugenis/jumpnbump-nacl>here</a> and <a href=http://github.com/eugenis/sdl-nacl>here</a>.
     </p>
-    <!-- For development, use a #develop location, which loads the develop
-    version of the module.
-    -->
-    <div id="nacl_pi_generator_content"></div>
-    <script type="text/javascript">
-      contentDiv = document.getElementById('nacl_pi_generator_content');
-      if (window.location.hash == '#develop') {
-        // Load the develop version of the module.
-        contentDiv.innerHTML = '<embed name="nacl_module" '
-                               + 'id="pi_generator" '
-                               + 'width=400 height=256 '
-                               + 'type="pepper-application/pi-generator" '
-                               + 'dimensions="2" />';
-        moduleDidLoad();
-      } else {
-        // Load the published .nexe.  This includes the 'nexes' attribute which
-        // shows how to load multi-architecture modules.  Each entry in the
-        // table is a key-value pair: the key is the runtime ('x86-32',
-        // 'x86-64', etc.); the value is a URL for the desired NaCl module.
-        var nexes = 'x86-32: jumpnbump_x86_64.nexe\n'
-                    + 'x86-64: jumpnbump_x86_64.nexe\n'
-                    + 'ARM: jumpnbump_x86_64.nexe ';
-        contentDiv.innerHTML = '<embed name="nacl_module" '
-                               + 'id="pi_generator" '
-                               + 'width=400 height=256 '
-                            // + 'nexes="' + nexes + '" '
-                               + 'type="application/x-nacl-srpc" '
-                               + 'dimensions="2" '
-                               + 'onload=moduleDidLoad(); />';
-        // Note: this code is here to work around a bug in Chromium build
-        // #47357.  See also
-        // http://code.google.com/p/nativeclient/issues/detail?id=500
-        document.getElementById('pi_generator').nexes = nexes;
-      }
-    </script>
+
+    <embed name="nacl_module"
+           id="pi_generator"
+           width=400 height=256
+           nacl="jumpnbump.nmf"
+           type="application/x-nacl"
+           dimensions="2"
+           onload="moduleDidLoad();" />
+
     <br />
   </body>
 </HTML>

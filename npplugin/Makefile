@@ -8,11 +8,7 @@ OBJECTS = $(CCFILES:%.cc=%.o)
 
 CPP=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl64-g++
 CFLAGS = -Wall -Wno-long-long -pthread -DXP_UNIX -Werror
-INCLUDES = -I$(SDL_DIR)/include
-LDFLAGS = -lgoogle_nacl_imc \
-          -lgoogle_nacl_npruntime \
-          -lpthread \
-          -lsrpc
+INCLUDES = -I$(SDL_PREFIX)/include/SDL
 
 all: $(OBJECTS)
 
