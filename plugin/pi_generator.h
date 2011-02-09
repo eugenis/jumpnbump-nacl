@@ -44,6 +44,8 @@ class PiGenerator : public pp::Instance {
   // The pp::Var takes over ownership of the returned script object.
   virtual pp::Var GetInstanceObject();
 
+  virtual bool HandleInputEvent(const PP_InputEvent& event);
+
   // Return a pointer to the pixels represented by |pixel_buffer_|.  When this
   // method returns, the underlying |pixel_buffer_| object is locked.  This
   // call must have a matching UnlockPixels() or various threading errors

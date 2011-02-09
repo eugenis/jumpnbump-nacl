@@ -21,6 +21,8 @@ LDFLAGS = -lppruntime \
           -lsrpc \
           $(ARCH_FLAGS)
 
+CFLAGS=-W -Wall
+
 # all: pi_generator_x86_64.nexe
 # all: pi_generator.nmf pi_generator_dbg.nmf
 all: $(OBJECTS_X86_64)

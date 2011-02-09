@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can
 // be found in the LICENSE file.
 
-#include "examples/pi_generator/pi_generator.h"
+#include "pi_generator.h"
 
 #include <ppapi/cpp/completion_callback.h>
 #include <ppapi/cpp/var.h>
@@ -36,6 +36,7 @@ const uint32_t kBlueShift = 0;
 // This is called by the brower when the 2D context has been flushed to the
 // browser window.
 void FlushCallback(void* data, int32_t result) {
+  (void)result;
   static_cast<pi_generator::PiGenerator*>(data)->set_flush_pending(false);
 }
 }  // namespace
@@ -141,6 +142,11 @@ void PiGenerator::DidChangeView(const pp::Rect& position,
 pp::Var PiGenerator::GetInstanceObject() {
   PiGeneratorScriptObject* script_object = new PiGeneratorScriptObject(this);
   return pp::Var(this, script_object);
+}
+
+bool PiGenerator::HandleInputEvent(const PP_InputEvent& event) {
+  SDL_NACL_PushEvent(&event);
+  return true;
 }
 
 bool PiGenerator::Init(uint32_t argc, const char* argn[], const char* argv[]) {
