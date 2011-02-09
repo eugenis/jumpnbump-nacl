@@ -170,6 +170,8 @@ void open_screen(void)
 	int lval = 0;
 	int flags;
 
+        printf("open_screen\n");
+
 	lval = SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_JOYSTICK);
 	if (lval < 0) {
 		fprintf(stderr, "SDL ERROR: %s\n", SDL_GetError());
