@@ -41,6 +41,8 @@ char *message[] = {
 	"New SDL port by Florian Schulze.",
 	"http://www.icculus.org/jumpnbump/",
 	"Ryan C. Gordon made networking possible again!",
+        "NativeClient port by Evgeniy Stepanov.",
+        "https://github.com/eugenis/jumpnbump-nacl",
 	"Visit our homepage at:",
 	"http://www.algonet.se/~mattiasb",
 	"Jump 'n Bump is e-mailware.",
