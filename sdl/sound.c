@@ -257,10 +257,6 @@ char dj_init(void)
 
 	open_screen();
 
-        return 0;
-
-
-
 	if (main_info.no_sound)
 		return 0;
 
