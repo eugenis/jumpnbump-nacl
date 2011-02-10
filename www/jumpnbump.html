@@ -8,39 +8,6 @@
   -->
   <head>
     <title>Jump'n'Bump NativeClient demo</title>
-    <script type="text/javascript">
-      function moduleDidLoad() {
-      }
-
-      function pageDidUnload() {
-      }
-
-      function zzz(event, press) {
-      var key;
-      var keychar;
-
-      if (window.event)
-        key = window.event.keyCode;
-      else if (e)
-        key = e.which;
-      else
-        return true;
-      keychar = String.fromCharCode(key);
-      keychar = keychar.toLowerCase();
-      if (pi_generator) {
-      pi_generator.key_event(key, press);
-      }
-      return true;
-      }
-
-      function zzz_press(event) {
-      // return zzz(event, 1);
-      }
-
-      function zzz_release(event) {
-      // return zzz(event, 0);
-      }
-    </script>
   </head>
     <body id="bodyId" onunload="pageDidUnload()" onkeydown="return zzz_press(event)" onkeyup="return zzz_release(event)">
     <h1>Jump'n'Bump NativeClient demo</h1>
@@ -56,8 +23,7 @@
            width=1000 height=700
            nacl="jumpnbump.nmf"
            type="application/x-nacl"
-           dimensions="2"
-           onload="moduleDidLoad();" />
+           dimensions="2"/>
 
     <br />
   </body>
