@@ -116,27 +116,12 @@ void PiGenerator::DidChangeView(const pp::Rect& position,
       position.size().height() == height())
     return;  // Size didn't change, no need to update anything.
 
-  // Create a new device context with the new size.
-  // DestroyContext();
-  // CreateContext(position.size());
-  // Delete the old pixel buffer and create a new one.
-  // ScopedMutexLock scoped_mutex(&pixel_buffer_mutex_);
-  // delete pixel_buffer_;
-
   printf("didchangeview, instance %p %p\n", this, static_cast<pp::Instance*>(this));
   if (!pixel_buffer_) {
     int lval = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     assert(lval >= 0);
-    SDL_SetVideoMode(400, 256, 8, 0);
     pthread_create(&compute_pi_thread_, NULL, ComputePi, this);
   }
-  // pixel_buffer_ = NULL;
-  // if (graphics_2d_context_ != NULL) {
-  //   pixel_buffer_ = new pp::ImageData(this,
-  //                                     PP_IMAGEDATAFORMAT_BGRA_PREMUL,
-  //                                     graphics_2d_context_->size(),
-  //                                     false);
-  // }
 }
 
 pp::Var PiGenerator::GetInstanceObject() {
@@ -242,8 +227,8 @@ pp::Var PiGenerator::PiGeneratorScriptObject::Call(
 void* PiGenerator::ComputePi(void* param) {
   // static char const * argv [] = {"-fireworks", "-fireworks","-fireworks" };
   // jumpnbump_main(2, argv, &render, &poll_event, param);
-  static char const * argv [] = {"jumpnbump", "-scaleup" };
-  jumpnbump_main(2, (char**)argv);
+  static char const * argv [] = {"jumpnbump", "-scaleup", "-fullscreen"};
+  jumpnbump_main(3, (char**)argv);
   return NULL;
 }
 // void* PiGenerator::ComputePi(void* param) {
