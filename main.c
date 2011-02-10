@@ -23,9 +23,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-int kill(int a, int b) {
-}
-
 #include "globals.h"
 #include <fcntl.h>
 #ifndef _MSC_VER

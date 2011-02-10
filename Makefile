@@ -10,7 +10,8 @@ LIBS = -lm $(SDL_LIBS) \
 -lgoogle_nacl_platform \
 -lgio \
 -lpthread \
--lsrpc
+-lsrpc \
+-lnosys
 
 
  #-lSDL_mixer -lSDL_net
