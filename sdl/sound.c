@@ -461,50 +461,50 @@ void dj_free_sfx(unsigned char sfx_num)
 
 char dj_ready_mod(char mod_num)
 {
-/* #ifndef NO_SDL_MIXER */
-/* 	FILE *tmp; */
-/* # if ((defined _MSC_VER) || (defined __MINGW32__)) */
-/* 	char filename[] = "jnb.tmpmusic.mod"; */
-/* # else */
-/* 	char filename[] = "/tmp/jnb.tmpmusic.mod"; */
-/* # endif */
-/* 	unsigned char *fp; */
-/* 	int len; */
+#ifndef NO_SDL_MIXER
+	FILE *tmp;
+# if ((defined _MSC_VER) || (defined __MINGW32__))
+	char filename[] = "jnb.tmpmusic.mod";
+# else
+	char filename[] = "/tmp/jnb.tmpmusic.mod";
+# endif
+	unsigned char *fp;
+	int len;
 
-/* 	if (main_info.no_sound) */
-/* 		return 0; */
+	if (main_info.no_sound)
+		return 0;
 
-/* 	switch (mod_num) { */
-/* 	case MOD_MENU: */
-/* 		fp = dat_open("jump.mod"); */
-/* 		len = dat_filelen("jump.mod"); */
-/* 		break; */
-/* 	case MOD_GAME: */
-/* 		fp = dat_open("bump.mod"); */
-/* 		len = dat_filelen("bump.mod"); */
-/* 		break; */
-/* 	case MOD_SCORES: */
-/* 		fp = dat_open("scores.mod"); */
-/* 		len = dat_filelen("scores.mod"); */
-/* 		break; */
-/* 	default: */
-/* 		fprintf(stderr, "bogus parameter to dj_ready_mod()\n"); */
-/* 		fp = NULL; */
-/* 		len = 0; */
-/* 		break; */
-/* 	} */
+	switch (mod_num) {
+	case MOD_MENU:
+		fp = dat_open("jump.mod");
+		len = dat_filelen("jump.mod");
+		break;
+	case MOD_GAME:
+		fp = dat_open("bump.mod");
+		len = dat_filelen("bump.mod");
+		break;
+	case MOD_SCORES:
+		fp = dat_open("scores.mod");
+		len = dat_filelen("scores.mod");
+		break;
+	default:
+		fprintf(stderr, "bogus parameter to dj_ready_mod()\n");
+		fp = NULL;
+		len = 0;
+		break;
+	}
 
-/* 	if (Mix_PlayingMusic()) */
-/* 		Mix_FadeOutMusic(1500); */
+	if (Mix_PlayingMusic())
+		Mix_FadeOutMusic(1500);
 
-/* 	if (current_music) { */
-/* 		Mix_FreeMusic(current_music); */
-/* 		current_music = NULL; */
-/* 	} */
+	if (current_music) {
+		Mix_FreeMusic(current_music);
+		current_music = NULL;
+	}
 
-/* 	if (fp == NULL) { */
-/* 		return 0; */
-/* 	} */
+	if (fp == NULL) {
+		return 0;
+	}
 
 /* 	tmp = fopen(filename, "wb"); */
 /* 	if (tmp) { */
@@ -513,49 +513,50 @@ char dj_ready_mod(char mod_num)
 /* 		fclose(tmp); */
 /* 	} */
 
+	current_music = Mix_LoadMUS_RW(SDL_RWFromMem(fp, len));
 /* 	current_music = Mix_LoadMUS(filename); */
 /* 	unlink(filename); */
-/* 	if (current_music == NULL) { */
-/* 		fprintf(stderr, "Couldn't load music: %s\n", SDL_GetError()); */
-/* 		return 0; */
-/* 	} */
+	if (current_music == NULL) {
+		fprintf(stderr, "Couldn't load music: %s\n", SDL_GetError());
+		return 0;
+	}
 
-/* #endif */
+#endif
 
 	return 0;
 }
 
 char dj_start_mod(void)
 {
-/* #ifndef NO_SDL_MIXER */
-/* 	if (main_info.no_sound) */
-/* 		return 0; */
+#ifndef NO_SDL_MIXER
+	if (main_info.no_sound)
+		return 0;
 
-/* 	Mix_VolumeMusic(0); */
-/* 	Mix_PlayMusic(current_music, -1); */
-/* #endif */
+	Mix_VolumeMusic(0);
+	Mix_PlayMusic(current_music, -1);
+#endif
 
 	return 0;
 }
 
 void dj_stop_mod(void)
 {
-/* #ifndef NO_SDL_MIXER */
-/* 	if (main_info.no_sound) */
-/* 		return; */
+#ifndef NO_SDL_MIXER
+	if (main_info.no_sound)
+		return;
 
-/* 	Mix_HaltMusic(); */
-/* #endif */
+	Mix_HaltMusic();
+#endif
 }
 
 void dj_set_mod_volume(char volume)
 {
-/* #ifndef NO_SDL_MIXER */
-/* 	if (main_info.no_sound) */
-/* 		return; */
+#ifndef NO_SDL_MIXER
+	if (main_info.no_sound)
+		return;
 
-/* 	Mix_VolumeMusic(volume); */
-/* #endif */
+	Mix_VolumeMusic(volume);
+#endif
 }
 
 char dj_load_mod(unsigned char * file_handle, char *filename, char mod_num)
