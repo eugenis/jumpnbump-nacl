@@ -242,7 +242,8 @@ pp::Var PiGenerator::PiGeneratorScriptObject::Call(
 void* PiGenerator::ComputePi(void* param) {
   // static char const * argv [] = {"-fireworks", "-fireworks","-fireworks" };
   // jumpnbump_main(2, argv, &render, &poll_event, param);
-  jumpnbump_main(0, NULL);
+  static char const * argv [] = {"jumpnbump", "-scaleup" };
+  jumpnbump_main(2, (char**)argv);
   return NULL;
 }
 // void* PiGenerator::ComputePi(void* param) {
