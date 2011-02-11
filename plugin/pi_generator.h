@@ -46,14 +46,6 @@ class PiGenerator : public pp::Instance {
 
   virtual bool HandleInputEvent(const PP_InputEvent& event);
 
-  // Return a pointer to the pixels represented by |pixel_buffer_|.  When this
-  // method returns, the underlying |pixel_buffer_| object is locked.  This
-  // call must have a matching UnlockPixels() or various threading errors
-  // (e.g. deadlock) will occur.
-  uint32_t* LockPixels();
-  // Release the image lock acquired by LockPixels().
-  void UnlockPixels() const;
-
   // Flushes its contents of |pixel_buffer_| to the 2D graphics context.  The
   // ComputePi() thread fills in |pixel_buffer_| pixels as it computes Pi.
   // This method is called in response to the "paint()" method being called
@@ -68,13 +60,6 @@ class PiGenerator : public pp::Instance {
   // |pi_| is computed in the ComputePi() thread.
   double pi() const {
     return pi_;
-  }
-
-  int width() const {
-    return pixel_buffer_ ? pixel_buffer_->size().width() : 0;
-  }
-  int height() const {
-    return pixel_buffer_ ? pixel_buffer_->size().height() : 0;
   }
 
   // Indicate whether a flush is pending.  This can only be called from the
@@ -113,19 +98,6 @@ class PiGenerator : public pp::Instance {
     PiGenerator* app_instance_;  // weak reference.
   };
 
-  // Create and initialize the 2D context used for drawing.
-  void CreateContext(const pp::Size& size);
-  // Destroy the 2D drawing context.
-  void DestroyContext();
-  // Push the pixels to the browser, then attempt to flush the 2D context.  If
-  // there is a pending flush on the 2D context, then update the pixels only
-  // and do not flush.
-  void FlushPixelBuffer();
-
-  bool IsContextValid() const {
-    return graphics_2d_context_ != NULL;
-  }
-
   mutable pthread_mutex_t pixel_buffer_mutex_;
   pp::Graphics2D* graphics_2d_context_;
   pp::ImageData* pixel_buffer_;
@@ -133,6 +105,8 @@ class PiGenerator : public pp::Instance {
   bool quit_;
   pthread_t compute_pi_thread_;
   double pi_;
+  int width_;
+  int height_;
 
   // ComputePi() estimates Pi using Monte Carlo method and it is executed by a
   // separate thread created in SetWindow(). ComputePi() puts kMaxPointCount
