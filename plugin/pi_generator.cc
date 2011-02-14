@@ -47,9 +47,6 @@ PiGenerator::PiGenerator(PP_Instance instance)
       height_(0),
       pi_(0.0) {
 
-  pp::Instance* inst = static_cast<pp::Instance*>(this);
-  printf("pp_instance %p\n", (void*)inst);
-  SDL_NACL_SetInstance(reinterpret_cast<void*>(inst));
 }
 
 PiGenerator::~PiGenerator() {
@@ -77,6 +74,7 @@ void PiGenerator::DidChangeView(const pp::Rect& position,
   height_ = position.size().height();
 
   printf("didchangeview, instance %p %p\n", this, static_cast<pp::Instance*>(this));
+  SDL_NACL_SetInstance(pp_instance(), width_, height_);
   int lval = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
   assert(lval >= 0);
   pthread_create(&compute_pi_thread_, NULL, ComputePi, this);
