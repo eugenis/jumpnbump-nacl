@@ -7,21 +7,17 @@ SDL_LIBS = $(SDL_PREFIX)/lib/libSDL_mixer.a $(SDL_PREFIX)/lib/libSDL.a $(SDL_PRE
 CFLAGS += -Wall -g -O0 -ffast-math -funroll-loops -Dstricmp=strcasecmp \
 	-Dstrnicmp=strncasecmp -DUSE_SDL -I. $(SDL_CFLAGS) #-DUSE_NET
 LIBS = -lm $(SDL_LIBS) \
--lppruntime \
--lppapi_cpp \
--lgoogle_nacl_platform \
--lgio \
--lpthread \
--lsrpc \
--lnosys
+-lppapi \
+-lppapi_cpp
+
 LDFLAGS += $(LIBS)
 
 
 MODIFY_TARGET = gobpack jnbpack jnbunpack
 
 CFILES = fireworks.c main.c menu.c filter.c resources.c sdl/gfx.c sdl/interrpt.c \
-sdl/sound.c sdl/input.c
-CCFILES=plugin/pi_generator.cc plugin/pi_generator_module.cc
+sdl/sound.c sdl/input.c extradefs.c
+CCFILES=plugin.cc
 OBJS = $(CFILES:%.c=%.o) $(CCFILES:%.cc=%.o)
 
 TARGET = jumpnbump.nexe

@@ -1,0 +1,6 @@
+{
+  "program": {
+    "x86-32": {"url": "jumpnbump_x86-32.nexe"},
+    "x86-64": {"url": "jumpnbump_x86-64.nexe"}
+  }
+}
