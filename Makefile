@@ -1,9 +1,10 @@
 HOST_CC=gcc
-NACL_CC=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl-gcc
-NACL_CXX=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl-g++
-NACL_LD=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl-g++
-SDL_CFLAGS = -I$(SDL_PREFIX)/include/SDL
-SDL_LIBS = $(SDL_PREFIX)/lib/libSDL_mixer.a $(SDL_PREFIX)/lib/libSDL.a $(SDL_PREFIX)/lib/libmikmod.a -lpthread
+CC=$(NACL_TOOLCHAIN_ROOT)/bin/$(ARCH)-gcc
+CXX=$(NACL_TOOLCHAIN_ROOT)/bin/$(ARCH)-g++
+LD=$(NACL_TOOLCHAIN_ROOT)/bin/$(ARCH)-g++
+SDL_CONFIG=$(NACL_TOOLCHAIN_ROOT)/$(ARCH)/usr/bin/sdl-config
+SDL_CFLAGS=`$(SDL_CONFIG) --cflags`
+SDL_LIBS=-lSDL_mixer -lmikmod -lvorbisfile -lvorbis -logg `$(SDL_CONFIG) --libs` -lnosys
 CFLAGS += -Wall -g -O0 -ffast-math -funroll-loops -Dstricmp=strcasecmp \
 	-Dstrnicmp=strncasecmp -DUSE_SDL -I. $(SDL_CFLAGS) #-DUSE_NET
 LIBS = -lm $(SDL_LIBS) \
@@ -27,13 +28,13 @@ PREFIX ?= /usr/local
 
 
 %.o: %.c globals.h
-	$(NACL_CC) $(CFLAGS) $(INCLUDES) $(DEBUG_FLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) $(INCLUDES) $(DEBUG_FLAGS) -c -o $@ $<
 
 %.o: %.cc globals.h
-	$(NACL_CXX) $(CFLAGS) $(INCLUDES) $(DEBUG_FLAGS) -c -o $@ $<
+	$(CXX) $(CFLAGS) $(INCLUDES) $(DEBUG_FLAGS) -c -o $@ $<
 
 $(TARGET): $(OBJS)
-	$(NACL_LD) $^ $(LDFLAGS) -o $@
+	$(LD) $^ $(LDFLAGS) -o $@
 
 
 .PHONY: data

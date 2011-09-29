@@ -1,7 +1,7 @@
 {
   "name": "NativeClient Jump'n'Bump",
   "description": "NativeClient port of the Jump'n'Bump game",
-  "version": "0.0.0.1",
+  "version": "0.0.0.2",
   "icons": {
     "16": "icon_16.png",
     "48": "icon_48.png",
