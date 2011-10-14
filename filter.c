@@ -72,6 +72,22 @@ void init_scale2x(void)
 void do_scale2x(unsigned char *src,
 		int src_width,
 		int src_height,
+		unsigned char *dst) {
+  int dst_width = src_width * 2;
+  int dst_height = src_height * 2;
+  for (int x = 0; x < dst_width; ++x) {
+    for (int y = 0; y < dst_height; ++y) {
+      int src_x = x / 2;
+      int src_y = y / 2;
+      dst[y * dst_width + x] = src[src_y * src_width + src_x];
+    }
+  }
+}
+
+#if 0
+void do_scale2x(unsigned char *src,
+		int src_width,
+		int src_height,
 		unsigned char *dst)
 {
 	int x;
@@ -249,3 +265,5 @@ void do_scale2x(unsigned char *src,
 		*e3 = rowColors[lookup_map[3*16+code]];
 	}
 }
+
+#endif
