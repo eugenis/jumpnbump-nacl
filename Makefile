@@ -37,7 +37,6 @@ $(TARGET): $(OBJS)
 	$(LD) $^ $(LDFLAGS) -o $@
 
 
-.PHONY: data
 
 all: $(TARGET)
 
@@ -54,7 +53,7 @@ globals.h: globals.pre
 jnbmenu.tcl: jnbmenu.pre
 	sed -e "s#%%PREFIX%%#$(PREFIX)#g" < jnbmenu.pre > jnbmenu.tcl
 
-data: jnbpack
+data/jumpbump.dat: jnbpack
 	cd data && make
 
 clean:

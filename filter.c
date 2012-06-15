@@ -75,8 +75,9 @@ void do_scale2x(unsigned char *src,
 		unsigned char *dst) {
   int dst_width = src_width * 2;
   int dst_height = src_height * 2;
-  for (int x = 0; x < dst_width; ++x) {
-    for (int y = 0; y < dst_height; ++y) {
+  int x, y;
+  for (x = 0; x < dst_width; ++x) {
+    for (y = 0; y < dst_height; ++y) {
       int src_x = x / 2;
       int src_y = y / 2;
       dst[y * dst_width + x] = src[src_y * src_width + src_x];
