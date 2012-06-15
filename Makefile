@@ -1,4 +1,5 @@
 HOST_CC=gcc
+NACL_TOOLCHAIN_ROOT=$(NACL_SDK_ROOT)/toolchain/linux_x86_glibc
 CC=$(NACL_TOOLCHAIN_ROOT)/bin/$(ARCH)-gcc
 CXX=$(NACL_TOOLCHAIN_ROOT)/bin/$(ARCH)-g++
 LD=$(NACL_TOOLCHAIN_ROOT)/bin/$(ARCH)-g++
@@ -21,11 +22,11 @@ sdl/sound.c sdl/input.c extradefs.c
 CCFILES=plugin.cc
 OBJS = $(CFILES:%.c=%.o) $(CCFILES:%.cc=%.o)
 
-TARGET = jumpnbump.nexe
+TARGET = jumpnbump-$(ARCH).nexe
 BINARIES = $(TARGET) jumpnbump.svgalib jumpnbump.fbcon $(MODIFY_TARGET) \
 	jnbmenu.tcl
 PREFIX ?= /usr/local
-
+STAGING = staging
 
 %.o: %.c globals.h
 	$(CC) $(CFLAGS) $(INCLUDES) $(DEBUG_FLAGS) -c -o $@ $<
@@ -36,12 +37,17 @@ PREFIX ?= /usr/local
 $(TARGET): $(OBJS)
 	$(LD) $^ $(LDFLAGS) -o $@
 
-
+.PHONY: install
 
 all: $(TARGET)
 
-www/$(TARGET): $(TARGET)
-	cp $(TARGET) www/$(TARGET)
+install: $(TARGET)
+	mkdir $(STAGING)
+	$(NACL_SDK_ROOT)/tools/create_nmf.py -t glibc \
+		-L $(NACL_TOOLCHAIN_ROOT)/$(ARCH)/lib \
+		-L $(NACL_TOOLCHAIN_ROOT)/$(ARCH)/lib \
+		-s $(STAGING) -o $(STAGING)/jumpnbump.nmf $(TARGET)
+	cp app/jumpnbump.html $(STAGING)/
 
 $(MODIFY_TARGET): globals.h
 	cd modify && make
@@ -60,6 +66,7 @@ clean:
 	cd modify && make clean
 	cd data && make clean
 	rm -f $(TARGET) $(OBJS) globals.h jnbmenu.tcl
+	rm -rf $(STAGING)
 
 doc:
 	rman jumpnbump.6 -f HTML >jumpnbump.html
