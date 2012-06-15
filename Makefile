@@ -7,7 +7,8 @@ SDL_CONFIG=$(NACL_TOOLCHAIN_ROOT)/$(ARCH)/usr/bin/sdl-config
 SDL_CFLAGS=`$(SDL_CONFIG) --cflags`
 SDL_LIBS=-lSDL_mixer -lmikmod -lvorbisfile -lvorbis -logg `$(SDL_CONFIG) --libs` -lSDL_net -lnacl-mounts
 CFLAGS += -Wall -g -O0 -ffast-math -funroll-loops -Dstricmp=strcasecmp \
-	-Dstrnicmp=strncasecmp -DUSE_SDL -I. $(SDL_CFLAGS) -DUSE_NET
+	-Dstrnicmp=strncasecmp -DUSE_SDL -I. $(SDL_CFLAGS) -DUSE_NET \
+	-I $(NACL_TOOLCHAIN_ROOT)/$(ARCH)/usr/include/nacl-mounts
 LIBS = -lm $(SDL_LIBS) \
 -lppapi \
 -lppapi_cpp

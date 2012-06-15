@@ -11,6 +11,9 @@
 #include <ppapi/cpp/rect.h>
 #include <ppapi/cpp/size.h>
 
+#include <nacl-mounts/base/KernelProxy.h>
+#include <nacl-mounts/net/SocketSubSystem.h>
+
 #include <SDL_video.h>
 extern "C" {
 extern int jumpnbump_main(int argc, const char *argv[]);
@@ -26,6 +29,8 @@ class PluginInstance : public pp::Instance {
 						  height_(0) {
     RequestInputEvents(PP_INPUTEVENT_CLASS_MOUSE);
     RequestFilteringInputEvents(PP_INPUTEVENT_CLASS_KEYBOARD);
+    proxy_ = KernelProxy::KPInstance();
+    proxy_->SetSocketSubSystem(new SocketSubSystem(this));
   }
 
   ~PluginInstance() {
@@ -64,7 +69,13 @@ class PluginInstance : public pp::Instance {
     return true;
   }
 
-  bool Init(int argc, const char* argn[], const char* argv[]) {
+  virtual bool Init(uint32_t argc, const char* argn[], const char* argv[]) {
+    is_server = false;
+    for (int i = 0; i < argc; ++i) {
+      if (strcmp(argn[i], "role") == 0) {
+	is_server = (strcmp(argv[i], "server") == 0);
+      }
+    }
     return true;
   }
 
@@ -73,10 +84,14 @@ class PluginInstance : public pp::Instance {
   pthread_t sdl_main_thread_;
   int width_;
   int height_;
+  KernelProxy* proxy_;
+  bool is_server;
 
   static void* sdl_thread(void* param) {
-    static char const * argv [] = {"jumpnbump", "-scaleup", "-fullscreen"};
-    jumpnbump_main(3, (const char**)argv);
+    PluginInstance* self = (PluginInstance*)param;
+    static char const * argv_server [] = {"jumpnbump", "-scaleup", "-fullscreen", "-server", "1"};
+    static char const * argv_client [] = {"jumpnbump", "-scaleup", "-fullscreen", "-connect", "localhost"};
+    jumpnbump_main(5, (const char**)(self->is_server ? argv_server : argv_client));
     return NULL;
   }
 };
