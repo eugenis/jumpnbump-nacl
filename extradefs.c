@@ -30,7 +30,3 @@ int setuid(uid_t uid) {
 struct passwd *getpwnam(const char *name) {
   return NULL;
 }
-
-int kill(pid_t pid, int sig) {
-  return 0;
-}
