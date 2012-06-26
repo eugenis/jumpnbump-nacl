@@ -12,15 +12,22 @@ LIBS = -lm $(SDL_LIBS) \
 -lppapi \
 -lppapi_cpp
 
+ifeq ($(ARCH), i686-nacl)
+  EXTRA_GEN_NMF_ARGS=-L $(NACL_TOOLCHAIN_ROOT)/x86_64-nacl/lib32
+else
+  EXTRA_GEN_NMF_ARGS=
+endif
+
 LDFLAGS += $(LIBS)
 
+OUT=out-$(ARCH)
 
 MODIFY_TARGET = gobpack jnbpack jnbunpack
 
 CFILES = fireworks.c main.c menu.c filter.c resources.c sdl/gfx.c sdl/interrpt.c \
 sdl/sound.c sdl/input.c extradefs.c
 CCFILES=plugin.cc
-OBJS = $(CFILES:%.c=%.o) $(CCFILES:%.cc=%.o)
+OBJS = $(addprefix $(OUT)/, $(CFILES:%.c=%.o) $(CCFILES:%.cc=%.o))
 
 TARGET = jumpnbump-$(ARCH).nexe
 BINARIES = $(TARGET) jumpnbump.svgalib jumpnbump.fbcon $(MODIFY_TARGET) \
@@ -28,10 +35,12 @@ BINARIES = $(TARGET) jumpnbump.svgalib jumpnbump.fbcon $(MODIFY_TARGET) \
 PREFIX ?= /usr/local
 STAGING = staging
 
-%.o: %.c globals.h
+$(OUT)/%.o: %.c globals.h
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) $(DEBUG_FLAGS) -c -o $@ $<
 
-%.o: %.cc globals.h
+$(OUT)/%.o: %.cc globals.h
+	mkdir -p $(dir $@)
 	$(CXX) $(CFLAGS) $(INCLUDES) $(DEBUG_FLAGS) -c -o $@ $<
 
 $(TARGET): $(OBJS)
@@ -45,7 +54,7 @@ install: $(TARGET)
 	mkdir $(STAGING)
 	$(NACL_SDK_ROOT)/tools/create_nmf.py -t glibc \
 		-L $(NACL_TOOLCHAIN_ROOT)/$(ARCH)/lib \
-		-L $(NACL_TOOLCHAIN_ROOT)/$(ARCH)/lib \
+		$(EXTRA_GEN_NMF_ARGS) \
 		-s $(STAGING) -o $(STAGING)/jumpnbump.nmf $(TARGET)
 	cp app/jumpnbump.html $(STAGING)/
 
