@@ -1,3 +1,9 @@
+# Usage:
+# define NACL_SDK_ROOT
+# make ARCH=i686-nacl
+# make ARCH=x86_84-nacl
+# make ARCH=x86_84-nacl install
+
 HOST_CC=gcc
 NACL_TOOLCHAIN_ROOT=$(NACL_SDK_ROOT)/toolchain/linux_x86_glibc
 CC=$(NACL_TOOLCHAIN_ROOT)/bin/$(ARCH)-gcc
@@ -52,10 +58,11 @@ all: $(TARGET)
 
 install: $(TARGET)
 	mkdir $(STAGING)
-	$(NACL_SDK_ROOT)/tools/create_nmf.py -t glibc \
-		-L $(NACL_TOOLCHAIN_ROOT)/$(ARCH)/lib \
+	$(NACL_SDK_ROOT)/tools/create_nmf.py \
+		-L $(NACL_TOOLCHAIN_ROOT)/x86_64-nacl/lib \
+		-L $(NACL_TOOLCHAIN_ROOT)/x86_64-nacl/lib32 \
 		$(EXTRA_GEN_NMF_ARGS) \
-		-s $(STAGING) -o $(STAGING)/jumpnbump.nmf $(TARGET)
+		-s $(STAGING) -o $(STAGING)/jumpnbump.nmf jumpnbump-i686-nacl.nexe jumpnbump-x86_64-nacl.nexe
 	cp app/jumpnbump.html $(STAGING)/
 
 $(MODIFY_TARGET): globals.h
