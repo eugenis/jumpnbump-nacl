@@ -752,24 +752,51 @@ void init_server(const char *netarg)
 	int wait_for_clients = ((netarg == NULL) ? 0 : atoi(netarg));
 	char *ipstr;
 
+	fprintf(stderr, "init_server\n");
+	fflush(stderr);
+
 	/** assign player number zero as default for the server */
 	if(-1 == client_player_num)
 		client_player_num = 0;
+
+	fprintf(stderr, "%s:%d\n", __FILE__, __LINE__);
+	fflush(stderr);
 
 	if ((wait_for_clients >= JNB_MAX_PLAYERS) || (wait_for_clients < 0)) {
 		printf("SERVER: Waiting for bogus client count (%d).\n", wait_for_clients);
 		exit(42);
 	}
+	fprintf(stderr, "%s:%d\n", __FILE__, __LINE__);
+	fflush(stderr);
 
 	if (SDLNet_Init() < 0) {
 		exit(42);
 	}
+	fprintf(stderr, "%s:%d\n", __FILE__, __LINE__);
+	fflush(stderr);
 	atexit(SDLNet_Quit);
+
+	fprintf(stderr, "%s:%d\n", __FILE__, __LINE__);
+	fflush(stderr);
 	
 	SDLNet_ResolveHost(&addr, NULL, JNB_INETPORT);
-	ipstr = SDLNet_ResolveIP(&addr);
-	SDLNet_ResolveHost(&addr, ipstr, JNB_INETPORT);
-	printf("SERVER: we are %s (%i.%i.%i.%i:%i).\n", ipstr, (addr.host >> 0) & 0xff, (addr.host >> 8) & 0xff, (addr.host >> 16) & 0xff, (addr.host >> 24) & 0xff, addr.port);
+
+	fprintf(stderr, "%s:%d\n", __FILE__, __LINE__);
+	fflush(stderr);
+
+	/* ipstr = SDLNet_ResolveIP(&addr); */
+
+	/* fprintf(stderr, "%s:%d\n", __FILE__, __LINE__); */
+	/* fflush(stderr); */
+
+	/* SDLNet_ResolveHost(&addr, ipstr, JNB_INETPORT); */
+
+	/* fprintf(stderr, "%s:%d\n", __FILE__, __LINE__); */
+	/* fflush(stderr); */
+
+
+	fprintf(stderr, "SERVER: we are (%i.%i.%i.%i:%i).\n", (addr.host >> 0) & 0xff, (addr.host >> 8) & 0xff, (addr.host >> 16) & 0xff, (addr.host >> 24) & 0xff, addr.port);
+	fflush(stderr);
 	net_info[client_player_num].addr = addr;
 
 	addr.host = INADDR_ANY;
@@ -817,8 +844,8 @@ void init_server(const char *netarg)
 		}
 
 		from = SDLNet_TCP_GetPeerAddress(s);
-		ipstr = SDLNet_ResolveIP(from);
-		printf("SERVER: Got data from %s (%i.%i.%i.%i:%i).\n", ipstr, (from->host >> 0) & 0xff, (from->host >> 8) & 0xff, (from->host >> 16) & 0xff, (from->host >> 24) & 0xff, from->port);
+		/* ipstr = SDLNet_ResolveIP(from); */
+		printf("SERVER: Got data from (%i.%i.%i.%i:%i).\n", (from->host >> 0) & 0xff, (from->host >> 8) & 0xff, (from->host >> 16) & 0xff, (from->host >> 24) & 0xff, from->port);
 
 		if (br != NETPKTBUFSIZE) {
 			printf("SERVER: Bogus packet.\n");
@@ -908,9 +935,9 @@ void connect_to_server(char *netarg)
 	atexit(SDLNet_Quit);
 	
 	SDLNet_ResolveHost(&addr, NULL, JNB_INETPORT);
-	ipstr = SDLNet_ResolveIP(&addr);
-	SDLNet_ResolveHost(&addr, ipstr, JNB_INETPORT);
-	printf("CLIENT: we are %s (%i.%i.%i.%i:%i).\n", ipstr, (addr.host >> 0) & 0xff, (addr.host >> 8) & 0xff, (addr.host >> 16) & 0xff, (addr.host >> 24) & 0xff, addr.port);
+	/* ipstr = SDLNet_ResolveIP(&addr); */
+	/* SDLNet_ResolveHost(&addr, ipstr, JNB_INETPORT); */
+	printf("CLIENT: we are (%i.%i.%i.%i:%i).\n", (addr.host >> 0) & 0xff, (addr.host >> 8) & 0xff, (addr.host >> 16) & 0xff, (addr.host >> 24) & 0xff, addr.port);
 
 	if (SDLNet_ResolveHost(&hent, netarg, JNB_INETPORT) < 0) {
 		fprintf(stderr, "CLIENT: couldn't find host: %s\n", SDLNet_GetError());
@@ -926,7 +953,7 @@ void connect_to_server(char *netarg)
 	socketset = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(socketset, sock);
 
-	printf("CLIENT: connected to %s...\n", SDLNet_ResolveIP(&hent));
+	printf("CLIENT: connected to ??...\n");
 
 	printf("CLIENT: Sending HELLO packet...\n");
 	pkt.cmd = NETCMD_HELLO;
