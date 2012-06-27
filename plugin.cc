@@ -70,12 +70,23 @@ class PluginInstance : public pp::Instance {
   }
 
   virtual bool Init(uint32_t argc, const char* argn[], const char* argv[]) {
-    is_server = false;
-    for (int i = 0; i < argc; ++i) {
-      if (strcmp(argn[i], "role") == 0) {
-	is_server = (strcmp(argv[i], "server") == 0);
+    is_server = true;
+    for (size_t i = 0; i < argc; ++i) {
+      if (strcmp(argn[i], "connect_to") == 0) {
+        is_server = false;
+        connect_to = strdup(argv[i]);
+      } else if (strcmp(argn[i], "listen") == 0) {
+        is_server = true;
+        int x = atoi(argv[i]);
+        if (x == 0)
+          x = 1;
+        else
+          x--;
+        snprintf(n_clients, 10, "%d", x);
       }
     }
+    fprintf(stderr, "i'm %s\n", is_server ? "server" : "client");
+    fflush(stderr);
     return true;
   }
 
@@ -86,12 +97,16 @@ class PluginInstance : public pp::Instance {
   int height_;
   KernelProxy* proxy_;
   bool is_server;
+  char* connect_to;
+  char n_clients[10];
 
   static void* sdl_thread(void* param) {
     PluginInstance* self = (PluginInstance*)param;
-    static char const * argv_server [] = {"jumpnbump", "-scaleup", "-fullscreen", "-server", "1"};
-    static char const * argv_client [] = {"jumpnbump", "-scaleup", "-fullscreen", "-connect", "localhost"};
-    jumpnbump_main(5, (const char**)(self->is_server ? argv_server : argv_client));
+    static char const * argv_server [] = {"jumpnbump", "-scaleup", "-fullscreen", "-server", (const char*)self->n_clients};
+    static char const * argv_client [] = {"jumpnbump", "-scaleup", "-fullscreen", "-connect", (const char*)self->connect_to};
+    bool zserver = self->is_server;
+    fprintf(stderr, "main: %s\n", zserver ? "server" : "client");
+    jumpnbump_main(5, (const char**)(zserver ? argv_server : argv_client));
     return NULL;
   }
 };

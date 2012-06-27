@@ -3,22 +3,55 @@
 <html>
   <head>
     <title>Jump'n'Bump NativeClient demo</title>
+    <script>
+      function startGame(attr, value) {
+      document.getElementById("controls_div").style.display = "none";
+      var embed = document.createElement('embed');
+      embed.setAttribute('name', 'nacl_module');
+      embed.setAttribute('id', 'jumpnbump_nacl');
+      embed.setAttribute('width', '800');
+      embed.setAttribute('height', '512');
+      embed.setAttribute('src', 'jumpnbump.nmf');
+      embed.setAttribute('type', 'application/x-nacl');
+      embed.setAttribute(attr, value);
+      var div = document.getElementById("nacl_div");
+      div.appendChild(embed);
+      }
+
+      function onConnect() {
+      var text = document.getElementById("addr").value
+      startGame("connect_to", text);
+      }
+
+      function onListen() {
+      var text = document.getElementById("nplayers").value
+      startGame("listen", text);
+      }
+      
+    </script>
   </head>
   <body style="color:gray;background-color:black">
 
     <p style="text-align:center">
-    <embed name="nacl_module"
-           id="jumpnbump-server"
-           width=800 height=512
-           src="jumpnbump.nmf"
-           type="application/x-nacl"
-	   role="server" />
-    <embed name="nacl_module"
-           id="jumpnbump-client"
-           width=800 height=512
-           src="jumpnbump.nmf"
-           type="application/x-nacl"
-	   role="client" />
+      <div id="controls_div">
+          <button id="connect" onclick="onConnect()">connect</button>
+          <input type="text" id="addr" \>
+            <hr><button id="listen" onclick="onListen()">listen</button>
+          <input type="text" width=50 id="nplayers" \> players
+        </div>
+      <div id="nacl_div"></div>
+    <!-- <embed name="nacl_module" -->
+    <!--        id="jumpnbump-server" -->
+    <!--        width=800 height=512 -->
+    <!--        src="jumpnbump.nmf" -->
+    <!--        type="application/x-nacl" -->
+	  <!--  role="server" /> -->
+    <!-- <embed name="nacl_module" -->
+    <!--        id="jumpnbump-client" -->
+    <!--        width=800 height=512 -->
+    <!--        src="jumpnbump.nmf" -->
+    <!--        type="application/x-nacl" -->
+	  <!--  role="client" /> -->
     <p style="text-align:center">
     <a href="http://brainchilddesign.com/Bottom.php?Page=Games&SubPage=JnB">Jump'n'Bump</a> |
     <a href="http://code.google.com/chrome/nativeclient">NativeClient</a> |
